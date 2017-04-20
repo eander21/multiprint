@@ -16,7 +16,21 @@
                 <MenuItem Header="Previous Prints"/>
             </MenuItem>
         </Menu>
-        <Grid></Grid>
+        <Grid>
+            <TabControl>
+                <TabItem Header="Print">
+                    <DockPanel>
+                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 5"/>
+                        <StackPanel DockPanel.Dock="Top" x:Name="MainContent">
+                            
+                        </StackPanel>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Verify">
+                    
+                </TabItem>
+            </TabControl>
+        </Grid>
     </DockPanel>
     <!-- -->
 </Window>

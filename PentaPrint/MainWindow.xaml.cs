@@ -23,6 +23,11 @@ namespace PentaPrint
         public MainWindow()
         {
             InitializeComponent();
+            var btn = new Button();
+            btn.Content = "TEST";
+
+            var panel = this.MainContent;
+            panel.Children.Add(btn);
         }
     }
 }
