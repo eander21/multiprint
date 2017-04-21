@@ -1,4 +1,5 @@
-﻿using PentaPrint.Settings;
+﻿using PentaPrint.Print;
+using PentaPrint.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -26,12 +27,19 @@ namespace PentaPrint
         {
             InitializeComponent();
             SetupFields();
+            Printer printer = new Printer();
         }
 
         private void SetupFields()
         {
             var mainPanel = this.MainContent;
+
+            //ScrollViewer viewer = new ScrollViewer();
+            //viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            //mainPanel.Children.Add(viewer);
             var fields = ParseInputFields(Properties.Settings.Default.InputFields);
+
+
             foreach(var group in fields)
             {
                 GroupBox groupBox = new GroupBox();

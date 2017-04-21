@@ -17,5 +17,11 @@
   &lt;string&gt;Injectors|Injector5&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="PrinterPort" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COM7</Value>
+    </Setting>
+    <Setting Name="PrinterBaud" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

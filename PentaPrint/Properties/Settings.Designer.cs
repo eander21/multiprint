@@ -49,5 +49,26 @@ namespace PentaPrint.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["InputFields"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM7")]
+        public string PrinterPort {
+            get {
+                return ((string)(this["PrinterPort"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        public int PrinterBaud {
+            get {
+                return ((int)(this["PrinterBaud"]));
+            }
+            set {
+                this["PrinterBaud"] = value;
+            }
+        }
     }
 }
