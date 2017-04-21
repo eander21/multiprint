@@ -36,22 +36,32 @@ namespace PentaPrint
             {
                 GroupBox groupBox = new GroupBox();
                 groupBox.Header = group.Key;
-                StackPanel groupContent = new StackPanel();
-                groupBox.Content = groupContent;
+                Grid contentGrid = new Grid();
+
+                groupBox.Content = contentGrid;
                 mainPanel.Children.Add(groupBox);
 
-                foreach(var inputField in group.Value)
-                {
-                    StackPanel fieldItem = new StackPanel();
-                    fieldItem.Orientation = Orientation.Horizontal;
-                    groupContent.Children.Add(fieldItem);
+                var nameCol = new ColumnDefinition();
+                nameCol.Width = GridLength.Auto;
+                contentGrid.ColumnDefinitions.Add(nameCol);
+                contentGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
+                var i = 0;
+                foreach (var inputField in group.Value)
+                {
+                    contentGrid.RowDefinitions.Add(new RowDefinition());
                     Label label = new Label();
                     label.Content = inputField.Name;
-                    fieldItem.Children.Add(label);
+                    Grid.SetRow(label, i);
+                    Grid.SetColumn(label, 0);
+                    contentGrid.Children.Add(label);
 
                     TextBox input = new TextBox();
-                    fieldItem.Children.Add(input);
+                    input.Margin = new Thickness(1);
+                    Grid.SetRow(input, i);
+                    Grid.SetColumn(input, 1);
+                    contentGrid.Children.Add(input);
+                    i++;
                 }
 
             }
