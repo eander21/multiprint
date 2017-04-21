@@ -54,6 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings\InputField.cs" />
+    <Compile Include="Settings\InputFieldSetting.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />
     <Page Include="MainWindow.xaml">

@@ -31,5 +31,23 @@ namespace PentaPrint.Properties {
                 return ((string)(this["ApplicationName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Engine|Partnumber|Persistent</string>
+  <string>Engine|Serialnumber</string>
+  <string>Injectors|Injector1</string>
+  <string>Injectors|Injector2</string>
+  <string>Injectors|Injector3</string>
+  <string>Injectors|Injector4</string>
+  <string>Injectors|Injector5</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection InputFields {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["InputFields"]));
+            }
+        }
     }
 }

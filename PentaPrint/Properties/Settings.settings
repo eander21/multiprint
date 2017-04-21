@@ -5,5 +5,17 @@
     <Setting Name="ApplicationName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Penta Print</Value>
     </Setting>
+    <Setting Name="InputFields" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Engine|Partnumber|Persistent&lt;/string&gt;
+  &lt;string&gt;Engine|Serialnumber&lt;/string&gt;
+  &lt;string&gt;Injectors|Injector1&lt;/string&gt;
+  &lt;string&gt;Injectors|Injector2&lt;/string&gt;
+  &lt;string&gt;Injectors|Injector3&lt;/string&gt;
+  &lt;string&gt;Injectors|Injector4&lt;/string&gt;
+  &lt;string&gt;Injectors|Injector5&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
