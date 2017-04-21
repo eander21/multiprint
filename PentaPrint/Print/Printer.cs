@@ -18,6 +18,16 @@ namespace PentaPrint.Print
             Serial.Open();
         }
 
+        public void Write(String str)
+        {
+            Serial.Write(str);
+        }
+
+        public void Write(Printable print)
+        {
+            Serial.Write(print.GetPrint());
+        }
+
         ~Printer()
         {
             Serial.Close();

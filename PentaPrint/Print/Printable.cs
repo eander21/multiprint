@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Print
 {
-    class Barcode
+    interface Printable
     {
+        String GetPrint();
     }
 }

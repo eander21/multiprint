@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Print
 {
-    class DataMatrix
+    class InjectorDataMatrix : DataMatrix
     {
     }
 }
