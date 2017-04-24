@@ -8,13 +8,8 @@
     <Setting Name="InputFields" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Engine|Partnumber|Persistent&lt;/string&gt;
-  &lt;string&gt;Engine|Serialnumber&lt;/string&gt;
-  &lt;string&gt;Injectors|Injector1&lt;/string&gt;
-  &lt;string&gt;Injectors|Injector2&lt;/string&gt;
-  &lt;string&gt;Injectors|Injector3&lt;/string&gt;
-  &lt;string&gt;Injectors|Injector4&lt;/string&gt;
-  &lt;string&gt;Injectors|Injector5&lt;/string&gt;
+  &lt;string&gt;MainEngine&lt;/string&gt;
+  &lt;string&gt;Injectors&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="PrinterPort" Type="System.String" Scope="Application">

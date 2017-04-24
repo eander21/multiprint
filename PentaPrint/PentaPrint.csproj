@@ -57,12 +57,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Print\Barcode.cs" />
-    <Compile Include="Print\DataMatrix.cs" />
+    <Compile Include="GUI\InputGroup\Injectors.cs" />
+    <Compile Include="GUI\InputGroup\InputGroup.cs" />
+    <Compile Include="GUI\InputGroup\MainEngine.cs" />
+    <Compile Include="Print\Barcode\Barcode.cs" />
+    <Compile Include="Print\DataMatrix\DataMatrix.cs" />
+    <Compile Include="Print\DataMatrix\InjectorDataMatrix.cs" />
     <Compile Include="Print\Injector\Injector.cs" />
+    <Compile Include="Print\Barcode\MainEngineBarcode.cs" />
+    <Compile Include="Print\Printable.cs" />
     <Compile Include="Print\Printer.cs" />
-    <Compile Include="Settings\InputField.cs" />
-    <Compile Include="Settings\InputFieldSetting.cs" />
+    <Compile Include="GUI\Input\InputField.cs" />
+    <Compile Include="GUI\Input\InputFieldSetting.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />
     <Page Include="MainWindow.xaml">

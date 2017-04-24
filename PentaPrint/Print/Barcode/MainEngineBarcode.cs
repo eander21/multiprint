@@ -8,5 +8,7 @@ namespace PentaPrint.Print
 {
     class MainEngineBarcode : Barcode
     {
+        String Partnumber { get; set; }
+        String Serialnumber { get; set; }
     }
 }

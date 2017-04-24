@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PentaPrint.Settings
+namespace PentaPrint.GUI.Input
 {
     class InputField
     {

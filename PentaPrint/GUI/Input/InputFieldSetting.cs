@@ -1,4 +1,4 @@
-﻿namespace PentaPrint.Settings
+﻿namespace PentaPrint.GUI.Input
 {
     internal enum InputFieldSetting
     {

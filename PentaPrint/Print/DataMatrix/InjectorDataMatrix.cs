@@ -8,5 +8,6 @@ namespace PentaPrint.Print
 {
     class InjectorDataMatrix : DataMatrix
     {
+        List<String> Injectors { get; set; }
     }
 }

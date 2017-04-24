@@ -1,9 +1,12 @@
-﻿using PentaPrint.Print;
-using PentaPrint.Settings;
+﻿using PentaPrint.GUI;
+using PentaPrint.Print;
+using PentaPrint.GUI.Input;
+using PentaPrint.GUI.InputGroup;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,94 +43,28 @@ namespace PentaPrint
             var fields = ParseInputFields(Properties.Settings.Default.InputFields);
 
 
-            foreach(var group in fields)
+            foreach (var group in fields)
             {
-                GroupBox groupBox = new GroupBox();
-                groupBox.Header = group.Key;
-                Grid contentGrid = new Grid();
-
-                groupBox.Content = contentGrid;
-                mainPanel.Children.Add(groupBox);
-
-                var nameCol = new ColumnDefinition();
-                nameCol.Width = GridLength.Auto;
-                contentGrid.ColumnDefinitions.Add(nameCol);
-                contentGrid.ColumnDefinitions.Add(new ColumnDefinition());
-
-                var i = 0;
-                foreach (var inputField in group.Value)
-                {
-                    contentGrid.RowDefinitions.Add(new RowDefinition());
-                    Label label = new Label();
-                    label.Content = inputField.Name;
-                    Grid.SetRow(label, i);
-                    Grid.SetColumn(label, 0);
-                    contentGrid.Children.Add(label);
-
-                    TextBox input = new TextBox();
-                    input.Margin = new Thickness(1);
-                    Grid.SetRow(input, i);
-                    Grid.SetColumn(input, 1);
-                    contentGrid.Children.Add(input);
-                    i++;
-                }
-
+                group.AttachControls(mainPanel);
             }
         }
 
-        private void ParseAndInsertInputField(string field, Dictionary<String, List<InputField>> fields)
+        private List<InputGroup> ParseInputFields(StringCollection inputFields)
         {
-            var split = field.Split('|');
-            if (split.Length < 2)
-                throw new ArgumentException("Error parsing input fields from settings", field);
-            var group = split[0];
-            var name = split[1];
-            List<InputFieldSetting> settings=null;
-            if (split.Length > 2)
-            {
-                settings = new List<InputFieldSetting>();
-                var settingsStrings = split[2].Split(',');
-                foreach(var settingsString in settingsStrings)
-                {
-                    try
-                    {
-                        var setting = Enum.Parse(typeof(InputFieldSetting), settingsString, true);
-                        settings.Add((InputFieldSetting)setting);
-                    }
-                    catch (Exception)
-                    {
-                        
-                    }
-                }
-            }
-            InputField inputField = new InputField();
-            inputField.Name = name;
-            inputField.Settings = settings;
-
-            List<InputField> items =null;
-            try
-            {
-                items = fields[group];
-            }
-            catch (Exception)
-            {
-                items = new List<InputField>();
-                fields.Add(group, items);
-            }
-           
-
-            items.Add(inputField);
-
-        }
-
-        private Dictionary<String, List<InputField>> ParseInputFields(StringCollection inputFields)
-        {
-            var fields = new Dictionary<String, List<InputField>>();
+            List<InputGroup> result = new List<InputGroup>();
             foreach (string field in inputFields)
             {
-                ParseAndInsertInputField(field, fields);
+                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("PentaPrint.GUI.InputGroup") && !t.IsAbstract);
+                foreach(var type in types)
+                {
+                    if (type.Name.Equals(field))
+                    {
+                        var instance = Activator.CreateInstance(type);
+                        result.Add((InputGroup)instance);
+                    }
+                }
             }
-            return fields;
+            return result;
         }
     }
 }
