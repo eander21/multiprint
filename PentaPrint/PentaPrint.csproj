@@ -69,6 +69,7 @@
     <Compile Include="Print\Printer.cs" />
     <Compile Include="GUI\Input\InputField.cs" />
     <Compile Include="GUI\Input\InputFieldSetting.cs" />
+    <Compile Include="Print\Verifiable.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />
     <Page Include="MainWindow.xaml">

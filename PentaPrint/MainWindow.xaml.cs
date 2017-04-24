@@ -35,13 +35,21 @@ namespace PentaPrint
 
         private void SetupFields()
         {
-            var mainPanel = this.MainContent;
+            var inputPanel = this.InputContent;
+            var verifyPanel = this.VerifyContent;
 
-            //ScrollViewer viewer = new ScrollViewer();
-            //viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            //mainPanel.Children.Add(viewer);
+            setupInputFields(inputPanel);
+            setupVerifyFields(verifyPanel);
+        }
+
+        private void setupVerifyFields(StackPanel verifyPanel)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void setupInputFields(StackPanel mainPanel)
+        {
             var fields = ParseInputFields(Properties.Settings.Default.InputFields);
-
 
             foreach (var group in fields)
             {

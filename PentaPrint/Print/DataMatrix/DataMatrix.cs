@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Print
 {
-    class DataMatrix : Printable
+    abstract class DataMatrix : Printable, Verifiable
     {
         public string GetPrint()
         {
             throw new NotImplementedException();
         }
+        public abstract bool Verify(string input);
     }
 }
