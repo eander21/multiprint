@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Print
 {
-    class Barcode : Printable
+    abstract class Barcode : Printable, Verifiable
     {
-        public string GetPrint()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract string GetPrint();
+        public abstract bool Verify(string input);
     }
 }

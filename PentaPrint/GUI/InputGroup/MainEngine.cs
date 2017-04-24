@@ -18,6 +18,7 @@ namespace PentaPrint.GUI.InputGroup
             inputFields = new List<InputField>();
             InputField partnumber = new InputField();
             partnumber.Name = "Partnumber";
+            partnumber.Settings.Add(InputFieldSetting.Persistant);
             inputFields.Add(partnumber);
 
             InputField serialnumber = new InputField();

@@ -8,10 +8,7 @@ namespace PentaPrint.Print
 {
     abstract class DataMatrix : Printable, Verifiable
     {
-        public string GetPrint()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract string GetPrint();
         public abstract bool Verify(string input);
     }
 }

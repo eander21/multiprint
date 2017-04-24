@@ -36,6 +36,8 @@ namespace PentaPrint
         private void SetupFields()
         {
             var inputPanel = this.InputContent;
+            MainEngineBarcode m = new MainEngineBarcode();
+            m.GetPrint();
             var verifyPanel = this.VerifyContent;
 
             setupInputFields(inputPanel);

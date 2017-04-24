@@ -14,11 +14,12 @@ namespace PentaPrint.GUI.InputGroup
     class Injectors : InputGroup
     {
         InjectorDataMatrix DataMatrix { get; set; }
+        private static int N_INJECTORS = 5;
 
         public Injectors() : base()
         {
             inputFields = new List<InputField>();
-            for (var i = 1; i < 6; i++)
+            for (var i = 1; i <= N_INJECTORS; i++)
             {
                 InputField inputField = new InputField();
                 inputField.Name = "Injector" + i;

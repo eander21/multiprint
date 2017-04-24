@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace PentaPrint.GUI.InputGroup
@@ -49,9 +50,16 @@ namespace PentaPrint.GUI.InputGroup
                 input.Margin = new Thickness(1);
                 Grid.SetRow(input, row);
                 Grid.SetColumn(input, 1);
+                BindValue(inputField, input, inputField.Name);
                 contentGrid.Children.Add(input);
                 row++;
             }
+        }
+
+        private void BindValue(InputField field, TextBox fe, string bindingName)
+        {
+            Binding binding = new Binding(bindingName);
+            BindingOperations.SetBinding(fe, TextBox.TextProperty, binding);
         }
     }
 }

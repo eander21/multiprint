@@ -10,5 +10,7 @@ namespace PentaPrint.GUI.Input
     {
         public string Name { get; set; }
         public List<InputFieldSetting> Settings { get; set; }
+        public string Value { get; set; }
+
     }
 }
