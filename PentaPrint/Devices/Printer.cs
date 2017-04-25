@@ -12,20 +12,21 @@ namespace PentaPrint.Devices
     class Printer : ICommand
     {
         private SerialPort Serial { get; set; }
-        private string port;
-        private int baud;
+        public string Port { get; set; } 
+        public int Baud { get; set; }
         public Printer()
         {
-            port = Properties.Settings.Default.PrinterPort;
-            baud = Properties.Settings.Default.PrinterBaud;
-            Serial = new SerialPort(port);
-            Serial.BaudRate = baud;
+            Port = Properties.Settings.Default.PrinterPort;
+            Baud = Properties.Settings.Default.PrinterBaud;
+            Serial = new SerialPort(Port);
+            Serial.BaudRate = Baud;
             try
             {
                 Serial.Open();
+                CanExecuteChanged?.Invoke(this, null);
             } catch (Exception e)
             {
-                Console.WriteLine("Could not open serial " + port + " at " + baud);
+                Console.WriteLine("Could not open serial " + Port + " at " + Baud);
                 Console.WriteLine(e);
             }
         }
@@ -49,20 +50,29 @@ namespace PentaPrint.Devices
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            if(parameter is string)
+            {
+                Write((string)parameter);
+            } else if (parameter is Printable)
+            {
+                Write((Printable)parameter);
+            }
         }
 
         ~Printer()
         {
             if(Serial!= null && Serial.IsOpen)
+            {
                 Serial.Close();
+                CanExecuteChanged?.Invoke(this, null);
+            }
             SaveSettings();
         }
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.PrinterPort = port;
-            Properties.Settings.Default.PrinterBaud = baud;
+            Properties.Settings.Default.PrinterPort = Port;
+            Properties.Settings.Default.PrinterBaud = Baud;
             Properties.Settings.Default.Save();
         }
     }

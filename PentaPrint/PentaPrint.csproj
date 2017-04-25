@@ -60,6 +60,12 @@
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="ViewModel\PrintViewModel.cs" />
+    <Compile Include="View\Injectors.xaml.cs">
+      <DependentUpon>Injectors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainEngine.xaml.cs">
+      <DependentUpon>MainEngine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Print\InputGroup\Injectors.cs" />
     <Compile Include="View\Print\InputGroup\InputGroup.cs" />
     <Compile Include="View\Print\InputGroup\MainEngine.cs" />
@@ -88,6 +94,14 @@
     <Page Include="Themes\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Injectors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainEngine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

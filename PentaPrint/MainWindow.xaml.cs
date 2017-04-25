@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PentaPrint.Devices;
+using PentaPrint.ViewModel;
 
 namespace PentaPrint
 {
@@ -26,12 +27,11 @@ namespace PentaPrint
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        Printer printer = new Printer();
-        
+    {       
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new PrintViewModel();
             SetupFields();
             SetupMenu();
         }
@@ -49,9 +49,8 @@ namespace PentaPrint
 
         private void SetupFields()
         {
+
             var inputPanel = this.InputContent;
-            MainEngineBarcode m = new MainEngineBarcode();
-            m.GetPrint();
             var verifyPanel = this.VerifyContent;
 
             setupInputFields(inputPanel);
@@ -70,7 +69,8 @@ namespace PentaPrint
 
             foreach (var group in fields)
             {
-                group.AttachControls(mainPanel);
+                //group.AttachControls(mainPanel);
+                mainPanel.Children.Add(group);
             }
         }
 
@@ -79,18 +79,18 @@ namespace PentaPrint
         /// </summary>
         /// <param name="inputFields"></param>
         /// <returns></returns>
-        private List<InputGroup> ParseInputFields(StringCollection inputFields)
+        private List<UIElement> ParseInputFields(StringCollection inputFields)
         {
-            List<InputGroup> result = new List<InputGroup>();
+            List<UIElement> result = new List<UIElement>();
             foreach (string field in inputFields)
             {
-                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("PentaPrint.View.InputGroup") && !t.IsAbstract);
+                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.Equals("PentaPrint.View") && !t.IsAbstract);
                 foreach (var type in types)
                 {
                     if (type.Name.Equals(field))
                     {
                         var instance = Activator.CreateInstance(type);
-                        result.Add((InputGroup)instance);
+                        result.Add((UIElement)instance);
                     }
                 }
             }

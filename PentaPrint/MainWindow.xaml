@@ -22,9 +22,10 @@
             <TabControl>
                 <TabItem Header="Print">
                     <DockPanel>
-                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 5"/>
+                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 5"
+                                x:Name="PrintButton" Command="{Binding PrintAll}"/>
                         <StackPanel DockPanel.Dock="Top" x:Name="InputContent">
-                            
+
                         </StackPanel>
                     </DockPanel>
                 </TabItem>
