@@ -59,6 +59,8 @@
     </ApplicationDefinition>
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="ViewModel\InjectorsViewModel.cs" />
+    <Compile Include="ViewModel\MainEngineViewModel.cs" />
     <Compile Include="ViewModel\PrintViewModel.cs" />
     <Compile Include="View\Injectors.xaml.cs">
       <DependentUpon>Injectors.xaml</DependentUpon>
@@ -66,9 +68,6 @@
     <Compile Include="View\MainEngine.xaml.cs">
       <DependentUpon>MainEngine.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Print\InputGroup\Injectors.cs" />
-    <Compile Include="View\Print\InputGroup\InputGroup.cs" />
-    <Compile Include="View\Print\InputGroup\MainEngine.cs" />
     <Compile Include="Model\Barcode\Barcode.cs" />
     <Compile Include="Model\DataMatrix\DataMatrix.cs" />
     <Compile Include="Model\DataMatrix\InjectorDataMatrix.cs" />
@@ -140,8 +139,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Model\Barcode\MainEngineTemplate.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Print\Input\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

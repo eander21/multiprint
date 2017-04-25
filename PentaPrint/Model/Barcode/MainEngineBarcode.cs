@@ -12,7 +12,7 @@ namespace PentaPrint.Model
     class MainEngineBarcode : Barcode
     {
         #region Members
-        private string _partnumber = "";
+        private string _partnumber = "46";
         public String Partnumber
         {
             get

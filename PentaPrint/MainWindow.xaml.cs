@@ -1,7 +1,6 @@
 ﻿using PentaPrint.View;
 using PentaPrint.Model;
 using PentaPrint.View.Input;
-using PentaPrint.View.InputGroup;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
