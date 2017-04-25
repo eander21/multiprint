@@ -30,7 +30,8 @@ namespace PentaPrint
         {
             InitializeComponent();
             SetupFields();
-            Printer printer = new Printer();
+            //Printer printer = new Printer();
+            
         }
 
         private void SetupFields()
@@ -41,7 +42,7 @@ namespace PentaPrint
             var verifyPanel = this.VerifyContent;
 
             setupInputFields(inputPanel);
-            setupVerifyFields(verifyPanel);
+            //setupVerifyFields(verifyPanel);
         }
 
         private void setupVerifyFields(StackPanel verifyPanel)
@@ -59,6 +60,11 @@ namespace PentaPrint
             }
         }
 
+        /// <summary>
+        /// Sets up the input fields from the configuration file
+        /// </summary>
+        /// <param name="inputFields"></param>
+        /// <returns></returns>
         private List<InputGroup> ParseInputFields(StringCollection inputFields)
         {
             List<InputGroup> result = new List<InputGroup>();

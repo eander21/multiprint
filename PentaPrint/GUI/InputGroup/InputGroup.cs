@@ -48,18 +48,21 @@ namespace PentaPrint.GUI.InputGroup
 
                 TextBox input = new TextBox();
                 input.Margin = new Thickness(1);
+                
                 Grid.SetRow(input, row);
                 Grid.SetColumn(input, 1);
-                BindValue(inputField, input, inputField.Name);
+                BindValue(inputField, input, "Value");
                 contentGrid.Children.Add(input);
                 row++;
             }
         }
 
-        private void BindValue(InputField field, TextBox fe, string bindingName)
+        private void BindValue(InputField field, TextBox textBox, string bindingName)
         {
             Binding binding = new Binding(bindingName);
-            BindingOperations.SetBinding(fe, TextBox.TextProperty, binding);
+            binding.Source = field;
+            binding.Mode = BindingMode.TwoWay;
+            textBox.SetBinding(TextBox.TextProperty, binding);
         }
     }
 }

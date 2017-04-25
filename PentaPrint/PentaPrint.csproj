@@ -63,7 +63,6 @@
     <Compile Include="Print\Barcode\Barcode.cs" />
     <Compile Include="Print\DataMatrix\DataMatrix.cs" />
     <Compile Include="Print\DataMatrix\InjectorDataMatrix.cs" />
-    <Compile Include="Print\Injector\Injector.cs" />
     <Compile Include="Print\Barcode\MainEngineBarcode.cs" />
     <Compile Include="Print\Printable.cs" />
     <Compile Include="Print\Printer.cs" />
