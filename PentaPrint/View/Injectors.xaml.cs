@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PentaPrint.Model;
+using PentaPrint.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,11 @@ namespace PentaPrint.View
     /// </summary>
     public partial class Injectors : UserControl
     {
+        private InjectorsViewModel viewModel = new InjectorsViewModel();
         public Injectors()
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
     }
 }
