@@ -9,8 +9,6 @@ namespace PentaPrint.GUI.Input
 {
     class InputField : INotifyPropertyChanged
     {
-
-        private Guid guid;
         public string Name { get; set; }
         public List<InputFieldSetting> Settings { get; set; } = new List<InputFieldSetting>();
 
@@ -22,16 +20,6 @@ namespace PentaPrint.GUI.Input
                 this.value = value;
                 ValueChanged("Value");
             }
-        }
-
-        public InputField()
-        {
-            guid = Guid.NewGuid();
-        }
-
-        public string getUID()
-        {
-            return "InputField." + Name +"."+ guid.ToString();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
