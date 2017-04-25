@@ -7,17 +7,43 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace PentaPrint.Print
+namespace PentaPrint.Model
 {
     class MainEngineBarcode : Barcode
     {
-        String Partnumber { get; set; }
-        String Serialnumber { get; set; }
+        #region Members
+        private string _partnumber = "";
+        public String Partnumber
+        {
+            get
+            {
+                return _partnumber;
+            }
+            set
+            {
+                _partnumber = value;
+                RaisePropertyChangedEvent("Partnumber");
+            }
+        }
+        private string _serialnumber = "";
+        public String Serialnumber
+        {
+            get
+            {
+                return _serialnumber;
+            }
+            set
+            {
+                _serialnumber = value;
+                RaisePropertyChangedEvent("Serialnumber");
+            }
+        }
+        #endregion
 
         public override string GetPrint()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "PentaPrint.Print.Barcode.MainEngineTemplate.txt";
+            var resourceName = "PentaPrint.Model.Barcode.MainEngineTemplate.txt";
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
             {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PentaPrint.Print
+namespace PentaPrint.Model
 {
-    abstract class DataMatrix : Printable, Verifiable
+    abstract class DataMatrix : ObservableObject, IPrint
     {
         public abstract string GetPrint();
         public abstract bool Verify(string input);

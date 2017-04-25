@@ -1,7 +1,7 @@
-﻿using PentaPrint.GUI;
-using PentaPrint.Print;
-using PentaPrint.GUI.Input;
-using PentaPrint.GUI.InputGroup;
+﻿using PentaPrint.View;
+using PentaPrint.Model;
+using PentaPrint.View.Input;
+using PentaPrint.View.InputGroup;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PentaPrint.Devices;
 
 namespace PentaPrint
 {
@@ -26,12 +27,24 @@ namespace PentaPrint
     /// </summary>
     public partial class MainWindow : Window
     {
+        Printer printer = new Printer();
+        
         public MainWindow()
         {
             InitializeComponent();
             SetupFields();
-            //Printer printer = new Printer();
-            
+            SetupMenu();
+        }
+
+        private void SetupMenu()
+        {
+            var menu = this.PrintMenu;
+            foreach (string item in Properties.Settings.Default.InputFields)
+            {
+                var menuItem = new MenuItem();
+                menuItem.Header = item;
+                menu.Items.Add(menuItem);
+            }
         }
 
         private void SetupFields()
@@ -42,6 +55,7 @@ namespace PentaPrint
             var verifyPanel = this.VerifyContent;
 
             setupInputFields(inputPanel);
+
             //setupVerifyFields(verifyPanel);
         }
 
@@ -70,8 +84,8 @@ namespace PentaPrint
             List<InputGroup> result = new List<InputGroup>();
             foreach (string field in inputFields)
             {
-                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("PentaPrint.GUI.InputGroup") && !t.IsAbstract);
-                foreach(var type in types)
+                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("PentaPrint.View.InputGroup") && !t.IsAbstract);
+                foreach (var type in types)
                 {
                     if (type.Name.Equals(field))
                     {
@@ -82,5 +96,6 @@ namespace PentaPrint
             }
             return result;
         }
+
     }
 }

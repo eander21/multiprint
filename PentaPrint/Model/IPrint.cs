@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PentaPrint.Print
+namespace PentaPrint.Model
 {
-    interface Printable
+    interface IPrint : Printable, Verifiable
     {
-        String GetPrint();
     }
 }

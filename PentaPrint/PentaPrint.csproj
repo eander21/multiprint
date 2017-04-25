@@ -57,18 +57,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GUI\InputGroup\Injectors.cs" />
-    <Compile Include="GUI\InputGroup\InputGroup.cs" />
-    <Compile Include="GUI\InputGroup\MainEngine.cs" />
-    <Compile Include="Print\Barcode\Barcode.cs" />
-    <Compile Include="Print\DataMatrix\DataMatrix.cs" />
-    <Compile Include="Print\DataMatrix\InjectorDataMatrix.cs" />
-    <Compile Include="Print\Barcode\MainEngineBarcode.cs" />
-    <Compile Include="Print\Printable.cs" />
-    <Compile Include="Print\Printer.cs" />
-    <Compile Include="GUI\Input\InputField.cs" />
-    <Compile Include="GUI\Input\InputFieldSetting.cs" />
-    <Compile Include="Print\Verifiable.cs" />
+    <Compile Include="Model\IPrint.cs" />
+    <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="ViewModel\PrintViewModel.cs" />
+    <Compile Include="View\Print\InputGroup\Injectors.cs" />
+    <Compile Include="View\Print\InputGroup\InputGroup.cs" />
+    <Compile Include="View\Print\InputGroup\MainEngine.cs" />
+    <Compile Include="Model\Barcode\Barcode.cs" />
+    <Compile Include="Model\DataMatrix\DataMatrix.cs" />
+    <Compile Include="Model\DataMatrix\InjectorDataMatrix.cs" />
+    <Compile Include="Model\Barcode\MainEngineBarcode.cs" />
+    <Compile Include="Model\Printable.cs" />
+    <Compile Include="Devices\Printer.cs" />
+    <Compile Include="View\Print\Input\DelegateCommand.cs" />
+    <Compile Include="Model\Verifiable.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />
     <Page Include="MainWindow.xaml">
@@ -122,7 +124,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Print\Barcode\MainEngineTemplate.txt" />
+    <EmbeddedResource Include="Model\Barcode\MainEngineTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
