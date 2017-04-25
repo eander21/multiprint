@@ -43,12 +43,15 @@ namespace PentaPrint.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM7")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM6")]
         public string PrinterPort {
             get {
                 return ((string)(this["PrinterPort"]));
+            }
+            set {
+                this["PrinterPort"] = value;
             }
         }
         
