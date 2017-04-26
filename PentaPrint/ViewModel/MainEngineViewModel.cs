@@ -24,6 +24,7 @@ namespace PentaPrint.ViewModel
             }
         }
         #endregion
+
         public MainEngineViewModel ()
         {
             Barcode = new MainEngineBarcode();

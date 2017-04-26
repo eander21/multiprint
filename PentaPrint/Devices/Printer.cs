@@ -78,14 +78,9 @@ namespace PentaPrint.Devices
                 Serial.Close();
                 CanExecuteChanged?.Invoke(this, null);
             }
-            SaveSettings();
+            Settings.Save();
         }
 
-        private void SaveSettings()
-        {
-            Properties.Settings.Default.PrinterPort = Port;
-            Properties.Settings.Default.PrinterBaud = Baud;
-            Properties.Settings.Default.Save();
-        }
+
     }
 }

@@ -10,7 +10,8 @@ namespace PentaPrint.ViewModel
     class SettingsViewModel : ObservableObject
     {
         #region Members
-        
+        #endregion
+
 
     }
 }

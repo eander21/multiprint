@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Model
 {
-    class MainEngineBarcode : Barcode
+    class MainEngineBarcode : Barcode, IDataErrorInfo
     {
         #region Members
         private string _partnumber;
@@ -38,6 +39,39 @@ namespace PentaPrint.Model
                 RaisePropertyChangedEvent("Serialnumber");
             }
         }
+        #endregion
+
+        #region IDataErrorInfo Members
+
+        public string Error
+        {
+            get { return String.Empty; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                String errorMessage = String.Empty;
+                switch (columnName)
+                {
+                    case "Partnumber":
+                        if (!String.IsNullOrEmpty(Partnumber) && !Regex.IsMatch(Partnumber, @"^\d{8}$"))
+                        {
+                            errorMessage = "Partnumber needs to be 8 digits long";
+                        }
+                        break;
+                    case "Serialnumber":
+                        if (!String.IsNullOrEmpty(Serialnumber) && !Regex.IsMatch(Serialnumber, @"^\d{8}$")) 
+                        {
+                            errorMessage = "Serialnumber is required";
+                        }
+                        break;
+                }
+                return errorMessage;
+            }
+        }
+
         #endregion
 
         public override string GetPrint()

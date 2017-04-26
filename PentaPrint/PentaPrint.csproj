@@ -57,11 +57,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Devices\SerialPrinterSettings.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="ViewModel\InjectorsViewModel.cs" />
     <Compile Include="ViewModel\MainEngineViewModel.cs" />
     <Compile Include="ViewModel\PrintViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="View\Injectors.xaml.cs">
       <DependentUpon>Injectors.xaml</DependentUpon>
     </Compile>

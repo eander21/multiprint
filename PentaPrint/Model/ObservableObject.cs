@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Model
 {
-    public class ObservableObject : INotifyPropertyChanged
+    public abstract class ObservableObject : INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void RaisePropertyChangedEvent(string propertyName)

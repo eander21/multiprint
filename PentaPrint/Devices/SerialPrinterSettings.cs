@@ -43,5 +43,12 @@ namespace PentaPrint.Devices
             ComPort = Properties.Settings.Default.PrinterPort;
             BaudRate = Properties.Settings.Default.PrinterBaud;
         }
+
+        public void Save()
+        {
+            Properties.Settings.Default.PrinterPort = ComPort;
+            Properties.Settings.Default.PrinterBaud = BaudRate;
+            Properties.Settings.Default.Save();
+        }
     }
 }
