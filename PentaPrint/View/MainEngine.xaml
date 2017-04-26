@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PentaPrint.View"
              mc:Ignorable="d" d:DesignWidth="300" Height="Auto">
-    <GroupBox Header="MainEngine">
+    <GroupBox Header="Main Engine">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

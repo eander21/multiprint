@@ -15,14 +15,15 @@
                 <MenuItem Header="_Settings"/>
             </MenuItem>
             <MenuItem Header="P_rint" x:Name="PrintMenu">
-                <MenuItem Header="Previous Prints" x:Name="PreviousPrints"/>
+                <MenuItem Header="Previous _Prints" x:Name="PreviousPrints"/>
+                <MenuItem Header="Print: _All" x:Name="PrintAll"/>
             </MenuItem>
         </Menu>
         <Grid>
             <TabControl>
                 <TabItem Header="Print">
                     <DockPanel>
-                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 5"
+                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
                                 x:Name="PrintButton" Command="{Binding PrintAll}"/>
                         <StackPanel DockPanel.Dock="Top" x:Name="InputContent">
 

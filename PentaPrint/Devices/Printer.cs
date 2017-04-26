@@ -9,24 +9,36 @@ using System.Windows.Input;
 
 namespace PentaPrint.Devices
 {
-    class Printer : ICommand
+    class Printer : ObservableObject, ICommand
     {
+        #region Members
         private SerialPort Serial { get; set; }
-        public string Port { get; set; } 
-        public int Baud { get; set; }
+        private SerialPrinterSettings _settings = new SerialPrinterSettings();
+        public SerialPrinterSettings Settings
+        {
+            get
+            {
+                return _settings;
+            }
+            set
+            {
+                _settings = value;
+                RaisePropertyChangedEvent("Settings");
+            }
+        }
+        #endregion
+
         public Printer()
         {
-            Port = Properties.Settings.Default.PrinterPort;
-            Baud = Properties.Settings.Default.PrinterBaud;
-            Serial = new SerialPort(Port);
-            Serial.BaudRate = Baud;
+            Serial = new SerialPort(_settings.ComPort);
+            Serial.BaudRate = _settings.BaudRate;
             try
             {
                 Serial.Open();
                 CanExecuteChanged?.Invoke(this, null);
             } catch (Exception e)
             {
-                Console.WriteLine("Could not open serial " + Port + " at " + Baud);
+                Console.WriteLine("Could not open serial " + _settings.ComPort + " at " + _settings.BaudRate);
                 Console.WriteLine(e);
             }
         }

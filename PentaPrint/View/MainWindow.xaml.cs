@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PentaPrint.Devices;
 using PentaPrint.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace PentaPrint
 {
@@ -26,11 +27,13 @@ namespace PentaPrint
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {       
+    {
+        private PrintViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new PrintViewModel();
+            viewModel = new PrintViewModel();
+            DataContext = viewModel;
             SetupFields();
             SetupMenu();
         }
@@ -41,9 +44,14 @@ namespace PentaPrint
             foreach (string item in Properties.Settings.Default.InputFields)
             {
                 var menuItem = new MenuItem();
-                menuItem.Header = item;
+                menuItem.Header = "Print: " + SplitCamel(item);
                 menu.Items.Add(menuItem);
             }
+        }
+        private string SplitCamel(string input)
+        {
+            var split = Regex.Replace(input, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})", " ");
+            return Regex.Replace(split, "^ ", "_");
         }
 
         private void SetupFields()
@@ -68,7 +76,6 @@ namespace PentaPrint
 
             foreach (var group in fields)
             {
-                //group.AttachControls(mainPanel);
                 mainPanel.Children.Add(group);
             }
         }
