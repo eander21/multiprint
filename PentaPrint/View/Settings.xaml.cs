@@ -20,10 +20,11 @@ namespace PentaPrint.View
     /// </summary>
     public partial class Settings : Window
     {
-        private SettingsViewModel viewModel = new SettingsViewModel();
+        private SettingsViewModel viewModel;
         public Settings()
         {
             InitializeComponent();
+            viewModel = new SettingsViewModel();
             DataContext = viewModel;
         }
     }

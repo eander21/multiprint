@@ -35,7 +35,7 @@ namespace PentaPrint.ViewModel
         public List<String> AvailablePorts { get; private set; }
         public string CurrentPort { get; set; }
 
-        public ICommand SaveAll { get; private set; }
+        public ICommand SaveAndClose { get; private set; }
         #endregion
 
         public SettingsViewModel()
@@ -48,7 +48,11 @@ namespace PentaPrint.ViewModel
             AvailableBaudrates = GetBaudRates();
             CurrentBaud = Properties.Settings.Default.PrinterBaud;
 
-            SaveAll = new SaveCommand(this);
+            CommandGroup saveAndClose = new CommandGroup();
+            saveAndClose.Commands.Add(new CloseWindow());
+            saveAndClose.Commands.Add(new SaveCommand(this));
+            SaveAndClose = saveAndClose;
+
         }
 
         private List<String> GetFields()

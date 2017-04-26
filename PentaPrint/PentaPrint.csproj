@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CommandGroup.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\OpenDialog.cs" />

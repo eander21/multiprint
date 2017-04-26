@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:PentaPrint.View"
         xmlns:properties="clr-namespace:PentaPrint.Properties"
         mc:Ignorable="d"
-        Title="{Binding Source={x:Static properties:Settings.Default}, Path=ApplicationName}" Width="350"  Height="135" 
-        Style="{StaticResource {x:Type Window}}">
+        Title="Settings" Width="350"  Height="135" 
+        Style="{StaticResource {x:Type Window}}"
+        x:Name="SettingsWindow">
     <DockPanel Height="Auto">
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Content="_Close" Name="Close" Margin="5" Padding="10 2" IsCancel="True"/>
-            <Button Content="_Save" Name="Save" Margin="5" Padding="10 2" Command="{Binding SaveAll}" IsCancel="True"/>
+            <Button Content="_Save" Name="Save" Margin="5" Padding="10 2" Command="{Binding SaveAndClose}" CommandParameter="{Binding ElementName=SettingsWindow}"/>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top">
             <GroupBox Header="Printer" Name="PrinterGroup" Height="Auto">
