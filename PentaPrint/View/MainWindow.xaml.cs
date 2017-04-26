@@ -93,7 +93,7 @@ namespace PentaPrint
             List<UIElement> result = new List<UIElement>();
             foreach (string field in inputFields)
             {
-                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.Equals("PentaPrint.View") && !t.IsAbstract);
+                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.Equals("PentaPrint.View.Field"));
                 foreach (var type in types)
                 {
                     if (type.Name.Equals(field))

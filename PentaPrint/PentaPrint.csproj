@@ -57,19 +57,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CloseWindow.cs" />
+    <Compile Include="Commands\OpenDialog.cs" />
     <Compile Include="Commands\OpenWindow.cs" />
     <Compile Include="Devices\SerialPrinterSettings.cs" />
-    <Compile Include="Mediator\SettingsMediator.cs" />
+    <Compile Include="Mediator\GlobalSettings.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="ViewModel\InjectorsViewModel.cs" />
     <Compile Include="ViewModel\MainEngineViewModel.cs" />
     <Compile Include="ViewModel\MainwWindowViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
-    <Compile Include="View\Injectors.xaml.cs">
+    <Compile Include="View\Field\Injectors.xaml.cs">
       <DependentUpon>Injectors.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainEngine.xaml.cs">
+    <Compile Include="View\Field\MainEngine.xaml.cs">
       <DependentUpon>MainEngine.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Barcode\Barcode.cs" />
@@ -101,11 +103,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Injectors.xaml">
+    <Page Include="View\Field\Injectors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainEngine.xaml">
+    <Page Include="View\Field\MainEngine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

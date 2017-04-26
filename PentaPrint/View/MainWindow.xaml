@@ -12,7 +12,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Settings" Command="{Binding Path=OpenWindow}" CommandParameter="Settings"/>
+                <MenuItem Header="_Settings" Command="{Binding Path=OpenDialog}" CommandParameter="Settings"/>
             </MenuItem>
             <MenuItem Header="P_rint" x:Name="PrintMenu">
                 <MenuItem Header="Previous _Prints" x:Name="PreviousPrints"/>

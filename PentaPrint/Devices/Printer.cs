@@ -1,4 +1,5 @@
-﻿using PentaPrint.Model;
+﻿using PentaPrint.Mediator;
+using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -13,7 +14,7 @@ namespace PentaPrint.Devices
     {
         #region Members
         private SerialPort Serial { get; set; }
-        private SerialPrinterSettings _settings = new SerialPrinterSettings();
+        private SerialPrinterSettings _settings;
         public SerialPrinterSettings Settings
         {
             get
@@ -30,16 +31,36 @@ namespace PentaPrint.Devices
 
         public Printer()
         {
+            Settings = GlobalSettings.Instance.PrinterSettings;
+            GlobalSettings.Instance.SubscribePrinterSettings(SettingsChanged);
+
+            InitializePrinter();
+        }
+
+        private void InitializePrinter()
+        {
+            DisposePrinter();
+
             Serial = new SerialPort(_settings.ComPort);
             Serial.BaudRate = _settings.BaudRate;
             try
             {
                 Serial.Open();
                 CanExecuteChanged?.Invoke(this, null);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("Could not open serial " + _settings.ComPort + " at " + _settings.BaudRate);
                 Console.WriteLine(e);
+            }
+        }
+
+        private void DisposePrinter()
+        {
+            if (Serial != null && Serial.IsOpen) {
+                Serial.Close();
+                Serial = null;
+                CanExecuteChanged?.Invoke(this, null);
             }
         }
 
@@ -73,12 +94,14 @@ namespace PentaPrint.Devices
 
         ~Printer()
         {
-            if(Serial!= null && Serial.IsOpen)
-            {
-                Serial.Close();
-                CanExecuteChanged?.Invoke(this, null);
-            }
+            DisposePrinter();
             Settings.Save();
+        }
+
+        public void SettingsChanged(SerialPrinterSettings settings)
+        {
+            Settings = settings;
+            InitializePrinter();
         }
 
 

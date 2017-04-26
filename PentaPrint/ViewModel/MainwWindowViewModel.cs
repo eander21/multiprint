@@ -16,12 +16,12 @@ namespace PentaPrint.ViewModel
     {
         Printer printer = new Printer();
         public ICommand PrintAll { get; private set; }
-        public ICommand OpenWindow { get; private set; }
+        public ICommand OpenDialog { get; private set; }
 
         public MainwWindowViewModel()
         {
             PrintAll = printer;
-            OpenWindow = new OpenWindow();
+            OpenDialog = new OpenDialog();
         }
 
 

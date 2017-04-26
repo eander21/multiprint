@@ -1,9 +1,11 @@
 ﻿using PentaPrint.Devices;
+using PentaPrint.Mediator;
 using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,18 +32,28 @@ namespace PentaPrint.ViewModel
         public int CurrentBaud { get; set; }
         public List<String> AvailablePorts { get; private set; }
         public string CurrentPort { get; set; }
-
-        public List<String> AvailableFields { get; private set; }
-        public List<String> CurrentFields { get; private set; }
         #endregion
 
         public SettingsViewModel()
         {
+            PrinterSettings = GlobalSettings.Instance.PrinterSettings;
+
             AvailablePorts = new List<String>(SerialPort.GetPortNames());
             CurrentPort = Properties.Settings.Default.PrinterPort;
 
             AvailableBaudrates = GetBaudRates();
             CurrentBaud = Properties.Settings.Default.PrinterBaud;
+        }
+
+        private List<String> GetFields()
+        {
+            var fields = new List<String>();
+            var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.Equals("PentaPrint.View.Field"));
+            foreach(var type in types)
+            {
+                fields.Add(type.Name);
+            }
+            return fields;
         }
 
         private List<int> GetBaudRates()
