@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="PentaPrint.View.Field.Injectors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PentaPrint.View.Field"
+             mc:Ignorable="d" d:DesignWidth="300" Height="Auto">
+    <GroupBox Header="Injectors">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Injector 1" Grid.Column="0" Grid.Row="0"/>
+            <TextBox x:Name="Injector1" Grid.Column="1" Grid.Row="0" Margin="2" Text="{Binding DataMatrix.Injector1, Mode=TwoWay}"/>
+
+            <Label Content="Injector 2" Grid.Column="0" Grid.Row="1"/>
+            <TextBox x:Name="Injector2" Grid.Column="1" Grid.Row="1" Margin="2" Text="{Binding DataMatrix.Injector2, Mode=TwoWay}"/>
+
+            <Label Content="Injector 3" Grid.Column="0" Grid.Row="2"/>
+            <TextBox x:Name="Injector3" Grid.Column="1" Grid.Row="2" Margin="2" Text="{Binding DataMatrix.Injector3, Mode=TwoWay}"/>
+
+            <Label Content="Injector 4" Grid.Column="0" Grid.Row="3"/>
+            <TextBox x:Name="Injector4" Grid.Column="1" Grid.Row="3" Margin="2" Text="{Binding DataMatrix.Injector4, Mode=TwoWay}"/>
+
+            <Label Content="Injector 5" Grid.Column="0" Grid.Row="4"/>
+            <TextBox x:Name="Injector5" Grid.Column="1" Grid.Row="4" Margin="2" Text="{Binding DataMatrix.Injector5, Mode=TwoWay}"/>
+        </Grid>
+    </GroupBox>
+</UserControl>
