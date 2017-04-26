@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PentaPrint.Devices
@@ -50,6 +51,7 @@ namespace PentaPrint.Devices
             }
             catch (Exception e)
             {
+                MessageBox.Show("Error: Could not connect to printer", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine("Could not open serial " + _settings.ComPort + " at " + _settings.BaudRate);
                 Console.WriteLine(e);
             }

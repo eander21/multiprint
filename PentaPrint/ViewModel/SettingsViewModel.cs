@@ -92,11 +92,13 @@ namespace PentaPrint.ViewModel
             return result;
         }
 
-        public void Save()
+        public bool Save()
         {
             PrinterSettings.BaudRate = CurrentBaud;
             PrinterSettings.ComPort = CurrentPort;
             PrinterSettings.Save();
+            GlobalSettings.Instance.SignalChangePrinter();
+            return true;
         }
     }
 }
