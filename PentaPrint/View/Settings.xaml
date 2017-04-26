@@ -11,7 +11,7 @@
     <DockPanel Height="Auto">
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Content="_Close" Name="Close" Margin="5" Padding="10 2" IsCancel="True"/>
-            <Button Content="_Save" Name="Save" Margin="5" Padding="10 2"/>
+            <Button Content="_Save" Name="Save" Margin="5" Padding="10 2" Command="{Binding SaveAll}" IsCancel="True"/>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top">
             <GroupBox Header="Printer" Name="PrinterGroup" Height="Auto">

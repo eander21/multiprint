@@ -1,4 +1,5 @@
-﻿using PentaPrint.Devices;
+﻿using PentaPrint.Commands;
+using PentaPrint.Devices;
 using PentaPrint.Mediator;
 using PentaPrint.Model;
 using System;
@@ -8,10 +9,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PentaPrint.ViewModel
 {
-    class SettingsViewModel : ObservableObject
+    class SettingsViewModel : ObservableObject, Saveable
     {
         #region Members
         private SerialPrinterSettings _printerSettings;
@@ -32,6 +34,8 @@ namespace PentaPrint.ViewModel
         public int CurrentBaud { get; set; }
         public List<String> AvailablePorts { get; private set; }
         public string CurrentPort { get; set; }
+
+        public ICommand SaveAll { get; private set; }
         #endregion
 
         public SettingsViewModel()
@@ -43,6 +47,8 @@ namespace PentaPrint.ViewModel
 
             AvailableBaudrates = GetBaudRates();
             CurrentBaud = Properties.Settings.Default.PrinterBaud;
+
+            SaveAll = new SaveCommand(this);
         }
 
         private List<String> GetFields()
@@ -80,6 +86,13 @@ namespace PentaPrint.ViewModel
             result.Add(460800);
             result.Add(921600);
             return result;
+        }
+
+        public void Save()
+        {
+            PrinterSettings.BaudRate = CurrentBaud;
+            PrinterSettings.ComPort = CurrentPort;
+            PrinterSettings.Save();
         }
     }
 }
