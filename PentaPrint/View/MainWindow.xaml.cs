@@ -28,11 +28,11 @@ namespace PentaPrint
     /// </summary>
     public partial class MainWindow : Window
     {
-        private PrintViewModel viewModel;
+        private MainwWindowViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new PrintViewModel();
+            viewModel = new MainwWindowViewModel();
             DataContext = viewModel;
             SetupFields();
             SetupMenu();
@@ -59,6 +59,9 @@ namespace PentaPrint
 
             var inputPanel = this.InputContent;
             var verifyPanel = this.VerifyContent;
+
+            inputPanel.Children.Clear();
+            verifyPanel.Children.Clear();
 
             setupInputFields(inputPanel);
 

@@ -1,4 +1,5 @@
-﻿using PentaPrint.Devices;
+﻿using PentaPrint.Commands;
+using PentaPrint.Devices;
 using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,16 @@ using System.Windows.Input;
 
 namespace PentaPrint.ViewModel
 {
-    class PrintViewModel
+    class MainwWindowViewModel
     {
         Printer printer = new Printer();
         public ICommand PrintAll { get; private set; }
+        public ICommand OpenWindow { get; private set; }
 
-        public PrintViewModel()
+        public MainwWindowViewModel()
         {
             PrintAll = printer;
+            OpenWindow = new OpenWindow();
         }
 
 
