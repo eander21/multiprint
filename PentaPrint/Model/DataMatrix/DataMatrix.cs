@@ -10,6 +10,7 @@ namespace PentaPrint.Model
     {
         public abstract string GetPrint();
         public abstract bool IsValid();
+        public abstract void Reset();
         public abstract bool Verify(string input);
     }
 }

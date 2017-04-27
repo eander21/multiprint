@@ -1,5 +1,5 @@
 ﻿using PentaPrint.Model;
-using PentaPrint.ViewModel;
+using PentaPrint.ViewModel.Field;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -96,5 +96,11 @@ namespace PentaPrint.Model
         {
             throw new NotImplementedException();
         }
+
+        public override void Reset()
+        {
+            Partnumber = "";
+            Serialnumber = "";
+        }
     }
 }

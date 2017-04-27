@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PentaPrint.ViewModel
+namespace PentaPrint.ViewModel.Field
 {
-    class MainEngineViewModel : ObservableObject
+    class MainEngineViewModel : FieldViewModel
     {
         #region Members
         private MainEngineBarcode _barcode;

@@ -37,6 +37,13 @@ namespace PentaPrint.Mediator
         {
             _printables.Add(key, value);
         }
+        public void ResetAllPrintables()
+        {
+            foreach (var print in _printables)
+            {
+                print.Value.Reset();
+            }
+        }
 
     }
 }

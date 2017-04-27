@@ -102,7 +102,7 @@ namespace PentaPrint.Model
         }
         public override bool IsValid()
         {
-            return true;
+            return false;
             //throw new NotImplementedException();
         }
 
@@ -140,5 +140,13 @@ namespace PentaPrint.Model
             return sb.ToString();
         }
 
+        public override void Reset()
+        {
+            Injector1 = "";
+            Injector2 = "";
+            Injector3 = "";
+            Injector4 = "";
+            Injector5 = "";
+        }
     }
 }

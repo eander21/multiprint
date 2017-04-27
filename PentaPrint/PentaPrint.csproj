@@ -60,6 +60,8 @@
     <Compile Include="Commands\CommandGroup.cs" />
     <Compile Include="Commands\PrintCommand.cs" />
     <Compile Include="Commands\PrintAll.cs" />
+    <Compile Include="Commands\Resetable.cs" />
+    <Compile Include="Commands\ResetCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\OpenDialog.cs" />
@@ -69,8 +71,9 @@
     <Compile Include="Mediator\PrintMediator.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
-    <Compile Include="ViewModel\InjectorsViewModel.cs" />
-    <Compile Include="ViewModel\MainEngineViewModel.cs" />
+    <Compile Include="ViewModel\Field\FieldViewModel.cs" />
+    <Compile Include="ViewModel\Field\InjectorsViewModel.cs" />
+    <Compile Include="ViewModel\Field\MainEngineViewModel.cs" />
     <Compile Include="ViewModel\MainwWindowViewModel.cs" />
     <Compile Include="Commands\Saveable.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />

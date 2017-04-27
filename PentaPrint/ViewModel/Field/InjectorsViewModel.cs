@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PentaPrint.ViewModel
+namespace PentaPrint.ViewModel.Field
 {
-    class InjectorsViewModel : ObservableObject
+    class InjectorsViewModel : FieldViewModel
     {
         #region Members
         private InjectorDataMatrix _dataMatrix;
