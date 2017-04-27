@@ -2,6 +2,7 @@
 using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace PentaPrint.Mediator
         private Dictionary<String, IPrint> _printables;
         //private GlobalSettings globalSettings = GlobalSettings.Instance;
         public Printer Printer { get; set; }
+        public event Action PrintableChanged;
 
         public PrintMediator()
         {
@@ -35,14 +37,25 @@ namespace PentaPrint.Mediator
         }
         public void AddPrintable(String key, IPrint value)
         {
+            value.PropertyChanged += PropertyChanged;
             _printables.Add(key, value);
         }
+
+        private void PropertyChanged(object obj, PropertyChangedEventArgs args)
+        {
+            PrintableChanged.Invoke();
+        }
+
         public void ResetAllPrintables()
         {
             foreach (var print in _printables)
             {
                 print.Value.Reset();
             }
+        }
+        public void SubscribePrintableChanged(Action ev)
+        {
+            PrintableChanged += ev;
         }
 
     }

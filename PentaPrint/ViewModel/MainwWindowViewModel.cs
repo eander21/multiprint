@@ -16,15 +16,35 @@ namespace PentaPrint.ViewModel
     class MainwWindowViewModel
     {
         PrintMediator printMediator = PrintMediator.Instance;
-        public ICommand PrintAll { get; private set; }
+        public DelegateCommand PrintAll { get; private set; }
         public ICommand OpenDialog { get; private set; }
 
         public MainwWindowViewModel()
         {
-            PrintAll = new PrintAll(printMediator);
+            PrintAll = new DelegateCommand(
+            (s) => PrintAllPrintables()
+            , () => ValidateAllPrintables());
+            printMediator.SubscribePrintableChanged(PrintAll.RaiseCanExecuteChanged);
             OpenDialog = new OpenDialog();
         }
 
+        public void PrintAllPrintables()
+        {
+            foreach (var print in printMediator.GetAllPrintables())
+            {
+                printMediator.Printer.Write(print.Value);
+            }
+        }
+
+        public bool ValidateAllPrintables()
+        {
+            foreach (var print in printMediator.GetAllPrintables())
+            {
+                if (!print.Value.IsValid())
+                    return false;
+            }
+            return true;
+        }
 
         public void BindValue(IPrint print, TextBox textBox, string bindingName)
         {

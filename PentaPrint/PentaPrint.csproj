@@ -89,7 +89,7 @@
     <Compile Include="Model\Barcode\MainEngineBarcode.cs" />
     <Compile Include="Model\Printable.cs" />
     <Compile Include="Devices\Printer.cs" />
-    <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Model\Verifiable.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />

@@ -24,7 +24,7 @@
                 <TabItem Header="Print">
                     <DockPanel>
                         <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
-                                x:Name="PrintButton" Command="{Binding PrintAll}"/>
+                                x:Name="PrintButton" Command="{Binding PrintAll, UpdateSourceTrigger=PropertyChanged}"/>
                         <StackPanel DockPanel.Dock="Top" x:Name="InputContent">
 
                         </StackPanel>

@@ -132,6 +132,13 @@ namespace PentaPrint.Model
         }
         private string GetClassifications()
         {
+            if (String.IsNullOrEmpty(Injector1) ||
+                String.IsNullOrEmpty(Injector2) ||
+                String.IsNullOrEmpty(Injector3) ||
+                String.IsNullOrEmpty(Injector4) ||
+                String.IsNullOrEmpty(Injector5))
+                return "ERROR";
+
             StringBuilder sb = new StringBuilder();
             sb.Append(Injector1[0] + " ");
             sb.Append(Injector2[0] + " ");

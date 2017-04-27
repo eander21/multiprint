@@ -89,7 +89,10 @@ namespace PentaPrint.Model
         }
         public override bool IsValid()
         {
-            return String.IsNullOrEmpty(Error);
+            if (String.IsNullOrEmpty(Partnumber) || String.IsNullOrEmpty(Serialnumber))
+                return false;
+
+            return Regex.IsMatch(Partnumber, @"^\d{8}$") && Regex.IsMatch(Serialnumber, @"^\d{8}$");
         }
 
         public override bool Verify(string input)

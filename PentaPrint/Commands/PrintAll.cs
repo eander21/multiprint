@@ -16,6 +16,12 @@ namespace PentaPrint.Commands
         public event EventHandler CanExecuteChanged;
         private PrintMediator printMediator;
 
+        public void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, new EventArgs());
+        }
+
         public PrintAll(PrintMediator printMediator)
         {
             this.printMediator = printMediator;
