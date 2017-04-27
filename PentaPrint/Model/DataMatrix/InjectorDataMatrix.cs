@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PentaPrint.Mediator;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -77,6 +78,13 @@ namespace PentaPrint.Model
             }
         }
         #endregion
+        private PrintMediator printMediator = PrintMediator.Instance;
+        private MainEngineBarcode mainEngine;
+
+        public InjectorDataMatrix()
+        {
+            mainEngine = (MainEngineBarcode)printMediator.GetPrintable("MainEngine");
+        }
 
         public override string GetPrint()
         {
@@ -105,15 +113,31 @@ namespace PentaPrint.Model
 
         private string GetFullCode()
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SP");
+            sb.Append(GetSerialNumber());
+            sb.Append("%##");
+            sb.Append(Injector1);
+            sb.Append(Injector2);
+            sb.Append(Injector3);
+            sb.Append(Injector4);
+            sb.Append(Injector5);
+            sb.Append("%<");
+            return sb.ToString();
         }
         private string GetSerialNumber()
         {
-            throw new NotImplementedException();
+            return mainEngine.Serialnumber;
         }
         private string GetClassifications()
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Injector1[0] + " ");
+            sb.Append(Injector2[0] + " ");
+            sb.Append(Injector3[0] + " ");
+            sb.Append(Injector4[0] + " ");
+            sb.Append(Injector5[0]);
+            return sb.ToString();
         }
 
     }
