@@ -1,4 +1,5 @@
-﻿using PentaPrint.Model;
+﻿using PentaPrint.Mediator;
+using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace PentaPrint.ViewModel
         public InjectorsViewModel()
         {
             DataMatrix = new InjectorDataMatrix();
+            PrintMediator.Instance.AddPrintable("Injectors", DataMatrix);
         }
     }
 }

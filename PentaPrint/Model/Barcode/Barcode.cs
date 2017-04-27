@@ -9,6 +9,7 @@ namespace PentaPrint.Model
     abstract class Barcode : ObservableObject, IPrint
     {
         public abstract string GetPrint();
+        public abstract bool IsValid();
         public abstract bool Verify(string input);
     }
 }

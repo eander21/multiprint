@@ -92,6 +92,11 @@ namespace PentaPrint.Model
                 return result;
             }
         }
+        public override bool IsValid()
+        {
+            return true;
+            //throw new NotImplementedException();
+        }
 
         public override bool Verify(string input)
         {
@@ -110,5 +115,6 @@ namespace PentaPrint.Model
         {
             throw new NotImplementedException();
         }
+
     }
 }

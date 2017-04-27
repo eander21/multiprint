@@ -87,6 +87,10 @@ namespace PentaPrint.Model
                 return result;
             }
         }
+        public override bool IsValid()
+        {
+            return String.IsNullOrEmpty(Error);
+        }
 
         public override bool Verify(string input)
         {

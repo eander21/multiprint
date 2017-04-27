@@ -42,8 +42,8 @@ namespace PentaPrint.Devices
         {
             DisposePrinter();
 
-            Serial = new SerialPort(_settings.ComPort);
-            Serial.BaudRate = _settings.BaudRate;
+            Serial = new SerialPort(Settings.ComPort);
+            Serial.BaudRate = Settings.BaudRate;
             try
             {
                 Serial.Open();
@@ -52,7 +52,7 @@ namespace PentaPrint.Devices
             catch (Exception e)
             {
                 MessageBox.Show("Error: Could not connect to printer", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine("Could not open serial " + _settings.ComPort + " at " + _settings.BaudRate);
+                Console.WriteLine("Could not open serial " + Settings.ComPort + " at " + Settings.BaudRate);
                 Console.WriteLine(e);
             }
         }

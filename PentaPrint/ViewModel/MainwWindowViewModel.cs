@@ -1,5 +1,6 @@
 ﻿using PentaPrint.Commands;
 using PentaPrint.Devices;
+using PentaPrint.Mediator;
 using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,13 @@ namespace PentaPrint.ViewModel
 {
     class MainwWindowViewModel
     {
-        Printer printer = new Printer();
+        PrintMediator printMediator = PrintMediator.Instance;
         public ICommand PrintAll { get; private set; }
         public ICommand OpenDialog { get; private set; }
 
         public MainwWindowViewModel()
         {
-            PrintAll = printer;
+            PrintAll = new PrintAll(printMediator);
             OpenDialog = new OpenDialog();
         }
 

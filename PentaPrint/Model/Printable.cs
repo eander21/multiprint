@@ -9,5 +9,6 @@ namespace PentaPrint.Model
     interface Printable
     {
         String GetPrint();
+        bool IsValid();
     }
 }

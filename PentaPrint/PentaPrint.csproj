@@ -58,12 +58,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CommandGroup.cs" />
+    <Compile Include="Commands\PrintCommand.cs" />
+    <Compile Include="Commands\PrintAll.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\CloseWindow.cs" />
     <Compile Include="Commands\OpenDialog.cs" />
     <Compile Include="Commands\OpenWindow.cs" />
     <Compile Include="Devices\SerialPrinterSettings.cs" />
     <Compile Include="Mediator\GlobalSettings.cs" />
+    <Compile Include="Mediator\PrintMediator.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="ViewModel\InjectorsViewModel.cs" />
@@ -155,6 +158,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Model\Barcode\MainEngineTemplate.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Model\DataMatrix\InjectorTemplate.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
