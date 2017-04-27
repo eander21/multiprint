@@ -1,6 +1,7 @@
 ﻿using PentaPrint.Mediator;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Model
 {
-    class InjectorDataMatrix : DataMatrix
+    class InjectorDataMatrix : DataMatrix, IDataErrorInfo
     {
         #region Injector members
         private string _injector1;
@@ -102,7 +103,7 @@ namespace PentaPrint.Model
         }
         public override bool IsValid()
         {
-            return false;
+            return true;
             //throw new NotImplementedException();
         }
 
@@ -148,5 +149,63 @@ namespace PentaPrint.Model
             Injector4 = "";
             Injector5 = "";
         }
+
+        private bool IsValid(string injector)
+        {
+            return false;
+        }
+
+        #region IDataErrorInfo Members
+
+        public string Error
+        {
+            get { return String.Empty; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                String errorMessage = String.Empty;
+                switch (columnName)
+                {
+                    case "Injector1":
+                        if (!String.IsNullOrEmpty(Injector1) && !IsValid(Injector1))
+                        {
+                            errorMessage = "Injector 1 is not valid. Checksum Error";
+                        }
+                        break;
+                    case "Injector2":
+                        if (!String.IsNullOrEmpty(Injector2) && !IsValid(Injector2))
+                        {
+                            errorMessage = "Injector 2 is not valid. Checksum Error";
+                        }
+                        break;
+                    case "Injector3":
+                        if (!String.IsNullOrEmpty(Injector3) && !IsValid(Injector3))
+                        {
+                            errorMessage = "Injector 3 is not valid. Checksum Error";
+                        }
+                        break;
+                    case "Injector4":
+                        if (!String.IsNullOrEmpty(Injector4) && !IsValid(Injector4))
+                        {
+                            errorMessage = "Injector 4 is not valid. Checksum Error";
+                        }
+                        break;
+                    case "Injector5":
+                        if (!String.IsNullOrEmpty(Injector5) && !IsValid(Injector5))
+                        {
+                            errorMessage = "Injector 5 is not valid. Checksum Error";
+                        }
+                        break;
+
+                }
+                return errorMessage;
+            }
+        }
+
+        #endregion
+
     }
 }
