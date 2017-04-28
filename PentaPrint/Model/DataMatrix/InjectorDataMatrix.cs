@@ -208,11 +208,26 @@ namespace PentaPrint.Model
             var shorts = GetShorts(injector);
             //Get 5bit values and concatenate
             var concat = Concatenate(shorts);
-            //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment)
+            //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment) and Correct for Special signing according to Bosch
             var iqa = GetShiftedIQA(concat);
-            //
+
 
             return injector !=null && injector.Length==8;
+        }
+
+        private short BoschSign(short item, int bits)
+        {
+            if(item >> bits-1 == 1)
+            {
+                int minus = 0;
+                for(var i = 0; i < 8 - bits; i++)
+                {
+                    minus+= 1 <<(8-1-i);
+                }
+                return (short)((int)item & minus);
+            }
+            
+            return item;
         }
 
         private List<short> GetShiftedIQA(long concat)
@@ -229,14 +244,14 @@ namespace PentaPrint.Model
                 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01100000   0x60, 5
                 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00011111   0x1F, 0
             */
-            result.Add(Convert.ToSByte((concat & 0xF800000000) >> 35));
-            result.Add(Convert.ToSByte((concat & 0x7F0000000) >> 28));
-            result.Add(Convert.ToSByte((concat & 0xF800000) >> 23));
-            result.Add(Convert.ToSByte((concat & 0x7F0000) >> 16));
-            result.Add(Convert.ToSByte((concat & 0xF800) >> 11));
-            result.Add(Convert.ToSByte((concat & 0x780) >> 7));
-            result.Add(Convert.ToSByte((concat & 0x60) >> 5));
-            result.Add(Convert.ToSByte((concat & 0x1F)));
+            result.Add(BoschSign(Convert.ToSByte((concat & 0xF800000000) >> 35),5)); //Classification
+            result.Add(BoschSign(Convert.ToSByte((concat & 0x7F0000000) >> 28),7)); //EM
+            result.Add(BoschSign(Convert.ToSByte((concat & 0xF800000) >> 23), 5)); //LI
+            result.Add(BoschSign(Convert.ToSByte((concat & 0x7F0000) >> 16), 7)); //FL
+            result.Add(BoschSign(Convert.ToSByte((concat & 0xF800) >> 11), 5));//PI
+            result.Add(BoschSign(Convert.ToSByte((concat & 0x780) >> 7), 4));//Checksum
+            result.Add(Convert.ToSByte((concat & 0x60) >> 5)); //QS (No sign correction)
+            result.Add(BoschSign(Convert.ToSByte((concat & 0x1F)), 5)); //IVA
 
             return result;
         }
