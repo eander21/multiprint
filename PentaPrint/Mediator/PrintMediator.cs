@@ -16,7 +16,7 @@ namespace PentaPrint.Mediator
         private Dictionary<String, IPrint> _printables;
         //private GlobalSettings globalSettings = GlobalSettings.Instance;
         public Printer Printer { get; set; }
-        public event Action PrintableChanged;
+        public event Action<string> PrintableChanged;
 
         public PrintMediator()
         {
@@ -43,7 +43,7 @@ namespace PentaPrint.Mediator
 
         private void PropertyChanged(object obj, PropertyChangedEventArgs args)
         {
-            PrintableChanged.Invoke();
+            PrintableChanged.Invoke(args.PropertyName);
         }
 
         public void ResetAllPrintables()
@@ -53,7 +53,7 @@ namespace PentaPrint.Mediator
                 print.Value.Reset();
             }
         }
-        public void SubscribePrintableChanged(Action ev)
+        public void SubscribePrintableChanged(Action<string> ev)
         {
             PrintableChanged += ev;
         }

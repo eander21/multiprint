@@ -44,6 +44,8 @@ namespace PentaPrint
             {
                 var menuItem = new MenuItem();
                 menuItem.Header = "Print: " + SplitCamel(item);
+                menuItem.CommandParameter = item;
+                menuItem.Command = viewModel.PrintOne;
                 menu.Items.Add(menuItem);
             }
         }

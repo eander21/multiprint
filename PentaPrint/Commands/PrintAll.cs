@@ -22,9 +22,15 @@ namespace PentaPrint.Commands
                 CanExecuteChanged(this, new EventArgs());
         }
 
+        public void PrintableChanged(string key)
+        {
+            RaiseCanExecuteChanged();
+        }
+
         public PrintAll(PrintMediator printMediator)
         {
             this.printMediator = printMediator;
+            printMediator.SubscribePrintableChanged(this.PrintableChanged);
         }
        
         public bool CanExecute(object parameter)
