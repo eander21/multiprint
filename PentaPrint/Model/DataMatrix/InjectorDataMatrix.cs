@@ -202,7 +202,7 @@ namespace PentaPrint.Model
 
         private bool IsValid(string injector)
         {
-            injector = "6A1AIB5H";
+            //injector = "6A1AIB5H";
 
             //Convert String to decimal
             var shorts = GetShorts(injector);
@@ -210,13 +210,32 @@ namespace PentaPrint.Model
             var concat = Concatenate(shorts);
             //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment) and Correct for Special signing according to Bosch
             var iqa = GetShiftedIQA(concat);
+            //Calculate the Checksum
+            var checksum = GetChecksum(iqa);
+
+            return checksum == iqa[5];
+
+            //return injector !=null && injector.Length==8;
+        }
+
+        private short GetChecksum(List<short> iqa)
+        {
+            short sum = (short)iqa.Sum(s => s);
+            sum -= (short)iqa[0]; //Subtract classification
+            sum -= (short)iqa[5]; //Subtract current checksum
+            short highNibble = (byte)(0xF0 & sum);
+            short lowNibble = (byte)(0x0F & sum);
 
 
-            return injector !=null && injector.Length==8;
+            var checksum = (short)((int)BoschSign(highNibble,4) + (int)BoschSign(lowNibble,4) +1);
+            checksum = BoschSign(checksum, 4);
+
+            return checksum;
         }
 
         private short BoschSign(short item, int bits)
         {
+            short result = item;
             if(item >> bits-1 == 1)
             {
                 int minus = 0;
@@ -224,10 +243,10 @@ namespace PentaPrint.Model
                 {
                     minus+= 1 <<(16-1-i);
                 }
-                return (short)((int)item | minus);
+                result = (short)((int)item | minus) ;
             }
             
-            return item;
+            return result;
         }
 
         private List<short> GetShiftedIQA(long concat)
