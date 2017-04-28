@@ -220,11 +220,11 @@ namespace PentaPrint.Model
             if(item >> bits-1 == 1)
             {
                 int minus = 0;
-                for(var i = 0; i < 8 - bits; i++)
+                for(var i = 0; i < 16 - bits; i++)
                 {
-                    minus+= 1 <<(8-1-i);
+                    minus+= 1 <<(16-1-i);
                 }
-                return (short)((int)item & minus);
+                return (short)((int)item | minus);
             }
             
             return item;
