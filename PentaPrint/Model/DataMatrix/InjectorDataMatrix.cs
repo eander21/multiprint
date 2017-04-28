@@ -81,10 +81,49 @@ namespace PentaPrint.Model
         #endregion
         private PrintMediator printMediator = PrintMediator.Instance;
         private MainEngineBarcode mainEngine;
+        private Dictionary<char, short> convertionTable;
 
         public InjectorDataMatrix()
         {
             mainEngine = (MainEngineBarcode)printMediator.GetPrintable("MainEngine");
+            setupConvertionTable();
+        }
+
+        private void setupConvertionTable()
+        {
+            convertionTable = new Dictionary<char, short>();
+            convertionTable.Add('A', 0);
+            convertionTable.Add('B', 1);
+            convertionTable.Add('C', 2);
+            convertionTable.Add('D', 3);
+            convertionTable.Add('E', 4);
+            convertionTable.Add('F', 5);
+            convertionTable.Add('G', 6);
+            convertionTable.Add('H', 7);
+            convertionTable.Add('I', 8);
+            convertionTable.Add('K', 9);
+            convertionTable.Add('L', 10);
+            convertionTable.Add('M', 11);
+            convertionTable.Add('N', 12);
+            convertionTable.Add('O', 13);
+            convertionTable.Add('P', 14);
+            convertionTable.Add('R', 15);
+            convertionTable.Add('S', 16);
+            convertionTable.Add('T', 17);
+            convertionTable.Add('U', 18);
+            convertionTable.Add('V', 19);
+            convertionTable.Add('W', 20);
+            convertionTable.Add('X', 21);
+            convertionTable.Add('Y', 22);
+            convertionTable.Add('Z', 23);
+            convertionTable.Add('1', 24);
+            convertionTable.Add('2', 25);
+            convertionTable.Add('3', 26);
+            convertionTable.Add('4', 27);
+            convertionTable.Add('5', 28);
+            convertionTable.Add('6', 29);
+            convertionTable.Add('7', 30);
+            convertionTable.Add('8', 31);
         }
 
         public override string GetPrint()
@@ -103,7 +142,11 @@ namespace PentaPrint.Model
         }
         public override bool IsValid()
         {
-            return true;
+            return (!String.IsNullOrEmpty(Injector1) &&
+                !String.IsNullOrEmpty(Injector2) &&
+                !String.IsNullOrEmpty(Injector3) &&
+                !String.IsNullOrEmpty(Injector4) &&
+                !String.IsNullOrEmpty(Injector5));
             //throw new NotImplementedException();
         }
 
@@ -159,7 +202,67 @@ namespace PentaPrint.Model
 
         private bool IsValid(string injector)
         {
-            return false;
+            injector = "6A1AIB5H";
+
+            //Convert String to decimal
+            var shorts = GetShorts(injector);
+            //Get 5bit values and concatenate
+            var concat = Concatenate(shorts);
+            //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment)
+            var iqa = GetShiftedIQA(concat);
+            //
+
+            return injector !=null && injector.Length==8;
+        }
+
+        private List<short> GetShiftedIQA(long concat)
+        {
+            var result = new List<short>();
+            //Get  5,7,5,7,5,4,2,5 
+            /*
+                00000000 00000000 00000000 11111000 00000000 00000000 00000000 00000000   0xF800000000, 35
+                00000000 00000000 00000000 00000111 11110000 00000000 00000000 00000000   0x7F0000000, 28
+                00000000 00000000 00000000 00000000 00001111 10000000 00000000 00000000   0xF800000, 23
+                00000000 00000000 00000000 00000000 00000000 01111111 00000000 00000000   0x7F0000, 16
+                00000000 00000000 00000000 00000000 00000000 00000000 11111000 00000000   0xF800, 11
+                00000000 00000000 00000000 00000000 00000000 00000000 00000111 10000000   0x780, 7
+                00000000 00000000 00000000 00000000 00000000 00000000 00000000 01100000   0x60, 5
+                00000000 00000000 00000000 00000000 00000000 00000000 00000000 00011111   0x1F, 0
+            */
+            result.Add(Convert.ToSByte((concat & 0xF800000000) >> 35));
+            result.Add(Convert.ToSByte((concat & 0x7F0000000) >> 28));
+            result.Add(Convert.ToSByte((concat & 0xF800000) >> 23));
+            result.Add(Convert.ToSByte((concat & 0x7F0000) >> 16));
+            result.Add(Convert.ToSByte((concat & 0xF800) >> 11));
+            result.Add(Convert.ToSByte((concat & 0x780) >> 7));
+            result.Add(Convert.ToSByte((concat & 0x60) >> 5));
+            result.Add(Convert.ToSByte((concat & 0x1F)));
+
+            return result;
+        }
+
+        private long Concatenate(List<short> shorts)
+        {
+            long result = 0;
+            int i = 1;
+            foreach(var part in shorts)
+            {
+                result += part;
+                if(i<shorts.Count)
+                    result = result << 5;
+                i++;
+            }
+            return result;
+        }
+
+        private List<short> GetShorts(string injector)
+        {
+            var result = new List<short>();
+            foreach(var ch in injector)
+            {
+                result.Add(convertionTable[ch]);
+            }
+            return result;
         }
 
         #region IDataErrorInfo Members
