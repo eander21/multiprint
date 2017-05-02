@@ -16,14 +16,16 @@ namespace PentaPrint.ViewModel
     class MainwWindowViewModel
     {
         PrintMediator printMediator = PrintMediator.Instance;
-        public PrintAll PrintAll { get; private set; }
+        public CommandGroup PrintAll { get; private set; }
         public PrintCommand PrintOne { get; private set; }
         public ICommand OpenDialog { get; private set; }
 
         public MainwWindowViewModel()
         {
-            PrintAll = new PrintAll(printMediator);
-            
+            PrintAll = new CommandGroup();
+            PrintAll.Commands.Add(new PrintAll(printMediator));
+            PrintAll.Commands.Add(new ResetAll(printMediator));
+
 
             PrintOne = new PrintCommand(printMediator);
 

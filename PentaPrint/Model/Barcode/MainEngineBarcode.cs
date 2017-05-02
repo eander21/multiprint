@@ -102,7 +102,7 @@ namespace PentaPrint.Model
 
         public override void Reset()
         {
-            Partnumber = "";
+            //Partnumber = ""; //Partnumber is persistant
             Serialnumber = "";
         }
     }

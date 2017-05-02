@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CommandGroup.cs" />
+    <Compile Include="Commands\ResetAll.cs" />
     <Compile Include="Commands\PrintCommand.cs" />
     <Compile Include="Commands\PrintAll.cs" />
     <Compile Include="Commands\Resetable.cs" />
