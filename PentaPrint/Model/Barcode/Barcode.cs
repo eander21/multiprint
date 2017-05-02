@@ -8,6 +8,7 @@ namespace PentaPrint.Model
 {
     abstract class Barcode : ObservableObject, IPrint
     {
+        public abstract object Clone();
         public abstract string GetPrint();
         public abstract bool IsValid();
         public abstract void Reset();

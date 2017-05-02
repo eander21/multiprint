@@ -11,8 +11,8 @@ namespace PentaPrint.ViewModel.Field
     class InjectorsViewModel : FieldViewModel
     {
         #region Members
-        private InjectorDataMatrix _dataMatrix;
-        public InjectorDataMatrix DataMatrix
+        private IPrint _dataMatrix;
+        public IPrint DataMatrix
         {
             get
             {
@@ -29,6 +29,13 @@ namespace PentaPrint.ViewModel.Field
         {
             DataMatrix = new InjectorDataMatrix();
             PrintMediator.Instance.AddPrintable("Injectors", DataMatrix);
+            PrintMediator.Instance.SubscribePrintableChanged(PrintableChanged);
+        }
+
+        public void PrintableChanged(string str)
+        {
+            if (str.Equals("Injectors"))
+                DataMatrix = PrintMediator.Instance.GetPrintable(str);
         }
     }
 }

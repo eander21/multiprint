@@ -47,9 +47,14 @@ namespace PentaPrint.Mediator
             History.Add(pg);
         }
 
-        internal void SetCurrentPrintGroup(PrintGroup parameter)
+        internal void SetCurrentPrintGroup(PrintGroup printGroup)
         {
-            throw new NotImplementedException();
+            _printables = printGroup.GetPrintablesClone();
+            foreach(var printable in _printables)
+            {
+                PrintableChanged.Invoke(printable.Key);
+            }
+            //throw new NotImplementedException();
         }
 
         public void ClearPrintables()
@@ -80,8 +85,9 @@ namespace PentaPrint.Mediator
             var printGroup = new PrintGroup();
             foreach(var print in _printables)
             {
-                printGroup.Printables.Add(print.Key, print.Value);
+                printGroup.Printables.Add(print.Key, (IPrint)print.Value.Clone());
             }
+            History.Add(printGroup);
         }
 
         public void ResetAllPrintables()

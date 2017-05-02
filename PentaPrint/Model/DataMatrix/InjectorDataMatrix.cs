@@ -371,5 +371,15 @@ namespace PentaPrint.Model
 
         #endregion
 
+        public override object Clone()
+        {
+            InjectorDataMatrix clone = new InjectorDataMatrix();
+            clone.Injector1 = this.Injector1;
+            clone.Injector2 = this.Injector2;
+            clone.Injector3 = this.Injector3;
+            clone.Injector4 = this.Injector4;
+            clone.Injector5 = this.Injector5;
+            return clone;
+        }
     }
 }

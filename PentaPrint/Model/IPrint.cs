@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Model
 {
-    interface IPrint : INotifyPropertyChanged, Printable, Verifiable, Resetable
+    interface IPrint : INotifyPropertyChanged, Printable, Verifiable, Resetable, ICloneable
     {
     }
 }

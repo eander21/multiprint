@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PentaPrint.Model
 {
-    class PrintGroup
+    class PrintGroup : ICloneable
     {
         private Dictionary<String, IPrint> _printables;
         public Dictionary<String, IPrint> Printables
@@ -28,6 +28,26 @@ namespace PentaPrint.Model
                 return Printables.ToList()[0].Value.ToString();
             return "NULL";
         }
+
+        public object Clone()
+        {
+            PrintGroup clone = new PrintGroup();
+            foreach (var printable in Printables)
+            {
+                clone.Printables.Add(printable.Key, (IPrint)printable.Value.Clone());
+            }
+            return clone;
+        }
+        public Dictionary<String,IPrint> GetPrintablesClone()
+        {
+            var clone = new Dictionary<String, IPrint>();
+            foreach (var printable in Printables)
+            {
+                clone.Add(printable.Key, (IPrint)printable.Value.Clone());
+            }
+            return clone;
+        }
+
         public PrintGroup()
         {
             Printables = new Dictionary<string, IPrint>();

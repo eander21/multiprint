@@ -21,7 +21,7 @@
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="MenuItem">
                             <Setter Property="Header" Value="{Binding Header}"/>
-                            <Setter Property="Command" Value="{Binding RetrieveHistory}"/>
+                            <Setter Property="Command" Value="{Binding DataContext.RetrieveHistory, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}"/>
                             <Setter Property="CommandParameter" Value="{Binding}" />
                         </Style>
                     </MenuItem.ItemContainerStyle>
@@ -33,7 +33,7 @@
             <TabControl>
                 <TabItem Header="Print">
                     <DockPanel>
-                        <Button Content="_Print All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
+                        <Button Content="Print _All" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
                                 x:Name="PrintButton" Command="{Binding PrintAll, UpdateSourceTrigger=PropertyChanged}"/>
                         <StackPanel DockPanel.Dock="Top" x:Name="InputContent">
 

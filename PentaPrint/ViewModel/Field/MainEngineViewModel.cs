@@ -11,8 +11,8 @@ namespace PentaPrint.ViewModel.Field
     class MainEngineViewModel : FieldViewModel
     {
         #region Members
-        private MainEngineBarcode _barcode;
-        public MainEngineBarcode Barcode
+        private IPrint _barcode;
+        public IPrint Barcode
         {
             get
             {
@@ -30,6 +30,13 @@ namespace PentaPrint.ViewModel.Field
         {
             Barcode = new MainEngineBarcode();
             PrintMediator.Instance.AddPrintable("MainEngine", Barcode);
+            PrintMediator.Instance.SubscribePrintableChanged(PrintableChanged);
+        }
+
+        public void PrintableChanged(string str)
+        {
+            if (str.Equals("MainEngine"))
+                Barcode = PrintMediator.Instance.GetPrintable(str);
         }
 
     }

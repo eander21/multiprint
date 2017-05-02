@@ -107,6 +107,15 @@ namespace PentaPrint.Model
         {
             //Partnumber = ""; //Partnumber is persistant
             Serialnumber = "";
+            RaisePropertyChangedEvent("Serialnumber");
+        }
+
+        public override object Clone()
+        {
+            MainEngineBarcode clone = new MainEngineBarcode();
+            clone.Partnumber = this.Partnumber;
+            clone.Serialnumber = this.Serialnumber;
+            return clone;
         }
     }
 }
