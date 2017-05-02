@@ -19,7 +19,9 @@ namespace PentaPrint.Commands
         public void RaiseCanExecuteChanged()
         {
             if (CanExecuteChanged != null)
+            {
                 CanExecuteChanged(this, new EventArgs());
+            }
         }
 
         public void PrintableChanged(string key)

@@ -17,6 +17,7 @@
             <MenuItem Header="P_rint" x:Name="PrintMenu">
 
 
+                <MenuItem Header="Print: _All" x:Name="PrintAll"  Command="{Binding PrintAll, UpdateSourceTrigger=PropertyChanged}"/>
                 <MenuItem Header="Previous _Prints" x:Name="PreviousPrints" ItemsSource="{Binding History}">
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="MenuItem">
@@ -26,7 +27,6 @@
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
-                <MenuItem Header="Print: _All" x:Name="PrintAll"  Command="{Binding PrintAll, UpdateSourceTrigger=PropertyChanged}"/>
             </MenuItem>
         </Menu>
         <Grid>

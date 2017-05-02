@@ -39,10 +39,7 @@ namespace PentaPrint.Commands
 
         public void Execute(object parameter)
         {
-            foreach(var print in printMediator.GetAllPrintables())
-            {
-                print.Value.Reset();
-            }
+            printMediator.ResetAllPrintables();
         }
     }
 }

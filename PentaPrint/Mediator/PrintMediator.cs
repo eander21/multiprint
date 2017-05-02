@@ -69,6 +69,10 @@ namespace PentaPrint.Mediator
         {
             return _printables[key];
         }
+        public IPrint GetPrintableClone(String key)
+        {
+            return (IPrint)_printables[key].Clone();
+        }
         public void AddPrintable(String key, IPrint value)
         {
             value.PropertyChanged += PropertyChanged;
@@ -96,6 +100,7 @@ namespace PentaPrint.Mediator
             foreach (var print in _printables)
             {
                 print.Value.Reset();
+                PrintableChanged.Invoke(print.Key);
             }
         }
         public void SubscribePrintableChanged(Action<string> ev)
