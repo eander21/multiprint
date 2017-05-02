@@ -20,7 +20,7 @@ namespace PentaPrint.ViewModel
         public ObservableCollection<PrintGroup> History { get; set; }
         public CommandGroup PrintAll { get; private set; }
         public ICommand RetrieveHistory { get; private set; }
-        public PrintCommand PrintOne { get; private set; }
+        public CommandGroup PrintOne { get; private set; }
         public ICommand OpenDialog { get; private set; }
 
         public MainwWindowViewModel()
@@ -33,7 +33,11 @@ namespace PentaPrint.ViewModel
             PrintAll.Commands.Add(new PushAllToHistory(printMediator));
             PrintAll.Commands.Add(new ResetAll(printMediator));
 
-            PrintOne = new PrintCommand(printMediator);
+            PrintOne = new CommandGroup();
+            PrintOne.Commands.Add(new PrintCommand(printMediator));
+            PrintOne.Commands.Add(new PushAllToHistory(printMediator));
+            PrintOne.Commands.Add(new ResetAll(printMediator));
+
 
             RetrieveHistory = new RetrieveHistory(printMediator);
 

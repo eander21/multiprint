@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CommandGroup.cs" />
+    <Compile Include="Commands\PushToHistory.cs" />
+    <Compile Include="Commands\ResetPrintable.cs" />
     <Compile Include="Commands\RetrieveHistory.cs" />
     <Compile Include="Commands\PushAllToHistory.cs" />
     <Compile Include="Commands\ResetAll.cs" />

@@ -84,7 +84,7 @@ namespace PentaPrint.Mediator
             PrintableChanged.Invoke(args.PropertyName);
         }
 
-        public void PushToHistory()
+        public void PushAllToHistory()
         {
             var printGroup = new PrintGroup();
             foreach(var print in _printables)
@@ -93,6 +93,19 @@ namespace PentaPrint.Mediator
             }
             printGroup.UpdateHeader();
             History.Add(printGroup);
+        }
+        public void PushToHistory(string key)
+        {
+            var printGroup = new PrintGroup();
+            printGroup.Printables.Add(key, (IPrint)_printables[key].Clone());
+            printGroup.UpdateHeader();
+            History.Add(printGroup);
+        }
+
+        public void ResetPrintable(string key)
+        {
+            _printables[key].Reset();
+            PrintableChanged.Invoke(key);
         }
 
         public void ResetAllPrintables()

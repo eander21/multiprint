@@ -39,7 +39,7 @@ namespace PentaPrint.Commands
 
         public void Execute(object parameter)
         {
-            printMediator.PushToHistory();
+            printMediator.PushAllToHistory();
         }
     }
 }
