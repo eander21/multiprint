@@ -66,5 +66,14 @@ namespace PentaPrint.Properties {
                 this["PrinterBaud"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PrintValidation {
+            get {
+                return ((bool)(this["PrintValidation"]));
+            }
+        }
     }
 }

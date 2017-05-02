@@ -37,11 +37,28 @@ namespace PentaPrint.Mediator
             }
         }
 
+        private Boolean _printValidation;
+        public Boolean PrintValidation
+        {
+            get
+            {
+                return _printValidation;
+            }
+            private set
+            {
+                _printValidation = value;
+                //Properties.Settings.Default.PrintValidation = _printValidation;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         public delegate void PrinterSettingsChanged(SerialPrinterSettings settings);
         private event PrinterSettingsChanged printerSettingsChanged;
         #endregion
 
-        private GlobalSettings(){ }
+        private GlobalSettings(){
+            PrintValidation = Properties.Settings.Default.PrintValidation;
+        }
 
         public void SignalChangePrinter()
         {

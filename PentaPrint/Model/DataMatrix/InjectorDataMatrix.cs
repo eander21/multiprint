@@ -142,11 +142,18 @@ namespace PentaPrint.Model
         }
         public override bool IsValid()
         {
-            return (!String.IsNullOrEmpty(Injector1) &&
-                !String.IsNullOrEmpty(Injector2) &&
-                !String.IsNullOrEmpty(Injector3) &&
-                !String.IsNullOrEmpty(Injector4) &&
-                !String.IsNullOrEmpty(Injector5));
+            if (String.IsNullOrEmpty(Injector1) ||
+                String.IsNullOrEmpty(Injector2) ||
+                String.IsNullOrEmpty(Injector3) ||
+                String.IsNullOrEmpty(Injector4) ||
+                String.IsNullOrEmpty(Injector5))
+                return false;
+
+            return (IsValid(Injector1) &&
+                IsValid(Injector2) &&
+                IsValid(Injector3) &&
+                IsValid(Injector4) &&
+                IsValid(Injector5));
             //throw new NotImplementedException();
         }
 
@@ -203,17 +210,24 @@ namespace PentaPrint.Model
         private bool IsValid(string injector)
         {
             //injector = "6A1AIB5H";
+            try
+            {
+                //Convert String to decimal
+                var shorts = GetShorts(injector);
+                //Get 5bit values and concatenate
+                var concat = Concatenate(shorts);
+                //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment) and Correct for Special signing according to Bosch
+                var iqa = GetShiftedIQA(concat);
+                //Calculate the Checksum
+                var checksum = GetChecksum(iqa);
 
-            //Convert String to decimal
-            var shorts = GetShorts(injector);
-            //Get 5bit values and concatenate
-            var concat = Concatenate(shorts);
-            //shift to 8 shorts by bit-size 5,7,5,7,5,4,2,5 (According to Injector Quantity Adjustment) and Correct for Special signing according to Bosch
-            var iqa = GetShiftedIQA(concat);
-            //Calculate the Checksum
-            var checksum = GetChecksum(iqa);
-
-            return checksum == iqa[5];
+                return checksum == iqa[5];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Could not evaluate validity.", e);
+                return false;
+            }
 
             //return injector !=null && injector.Length==8;
         }

@@ -35,6 +35,8 @@ namespace PentaPrint.Commands
 
         public bool CanExecute(object parameter)
         {
+            if (!GlobalSettings.Instance.PrintValidation)
+                return true;
             var printable = printMediator.GetPrintable((string)parameter);
             if (printable == null || !printable.IsValid())
                 return false;
