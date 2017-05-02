@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CommandGroup.cs" />
+    <Compile Include="Commands\RetrieveHistory.cs" />
+    <Compile Include="Commands\PushAllToHistory.cs" />
     <Compile Include="Commands\ResetAll.cs" />
     <Compile Include="Commands\PrintCommand.cs" />
     <Compile Include="Commands\PrintAll.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Mediator\PrintMediator.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="Model\PrintGroup.cs" />
     <Compile Include="ViewModel\Field\FieldViewModel.cs" />
     <Compile Include="ViewModel\Field\InjectorsViewModel.cs" />
     <Compile Include="ViewModel\Field\MainEngineViewModel.cs" />

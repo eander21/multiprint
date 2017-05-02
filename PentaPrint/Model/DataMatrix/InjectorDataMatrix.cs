@@ -89,6 +89,12 @@ namespace PentaPrint.Model
             setupConvertionTable();
         }
 
+        public InjectorDataMatrix(MainEngineBarcode mainEngine)
+        {
+            this.mainEngine = mainEngine;
+            setupConvertionTable();
+        }
+
         private void setupConvertionTable()
         {
             convertionTable = new Dictionary<char, short>();

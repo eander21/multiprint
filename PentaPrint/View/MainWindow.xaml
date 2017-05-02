@@ -15,7 +15,17 @@
                 <MenuItem Header="_Settings" Command="{Binding Path=OpenDialog}" CommandParameter="Settings"/>
             </MenuItem>
             <MenuItem Header="P_rint" x:Name="PrintMenu">
-                <MenuItem Header="Previous _Prints" x:Name="PreviousPrints"/>
+
+
+                <MenuItem Header="Previous _Prints" x:Name="PreviousPrints" ItemsSource="{Binding History}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Header}"/>
+                            <Setter Property="Command" Value="{Binding RetrieveHistory}"/>
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
                 <MenuItem Header="Print: _All" x:Name="PrintAll"  Command="{Binding PrintAll, UpdateSourceTrigger=PropertyChanged}"/>
             </MenuItem>
         </Menu>

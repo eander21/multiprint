@@ -73,7 +73,10 @@ namespace PentaPrint.Model
         }
 
         #endregion
-
+        public override string ToString()
+        {
+            return "Partnumber: " + Partnumber + ", Serialnumber: " + Serialnumber;
+        }
         public override string GetPrint()
         {
             var assembly = Assembly.GetExecutingAssembly();

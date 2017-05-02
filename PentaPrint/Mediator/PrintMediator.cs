@@ -2,6 +2,7 @@
 using PentaPrint.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace PentaPrint.Mediator
         private static PrintMediator _instance = new PrintMediator();
         public static PrintMediator Instance { get { return _instance; } private set { _instance = value; } }
         private Dictionary<String, IPrint> _printables;
+
+        public ObservableCollection<PrintGroup> History { get; set; }
         //private GlobalSettings globalSettings = GlobalSettings.Instance;
         public Printer Printer { get; set; }
         public event Action<string> PrintableChanged;
@@ -22,7 +25,33 @@ namespace PentaPrint.Mediator
         {
             _printables = new Dictionary<string, IPrint>();
             Printer = new Printer();
+            History = new ObservableCollection<PrintGroup>();
+
         }
+
+        public void SetupTestPrintGroups()
+        {
+            PrintGroup pg = new PrintGroup();
+            var mainEngine = new MainEngineBarcode();
+            mainEngine.Partnumber = "12345678";
+            mainEngine.Serialnumber = "12345678";
+            pg.Printables.Add("MainEngine", mainEngine);
+            var injectors = new InjectorDataMatrix(mainEngine);
+            injectors.Injector1 = "6A1AIB5H";
+            injectors.Injector2 = "6A1AIB5H";
+            injectors.Injector3 = "6A1AIB5H";
+            injectors.Injector4 = "6A1AIB5H";
+            injectors.Injector5 = "6A1AIB5H";
+            pg.Printables.Add("Injectors", injectors);
+            pg.Header = mainEngine.ToString();
+            History.Add(pg);
+        }
+
+        internal void SetCurrentPrintGroup(PrintGroup parameter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ClearPrintables()
         {
             _printables.Clear();
@@ -44,6 +73,15 @@ namespace PentaPrint.Mediator
         private void PropertyChanged(object obj, PropertyChangedEventArgs args)
         {
             PrintableChanged.Invoke(args.PropertyName);
+        }
+
+        public void PushToHistory()
+        {
+            var printGroup = new PrintGroup();
+            foreach(var print in _printables)
+            {
+                printGroup.Printables.Add(print.Key, print.Value);
+            }
         }
 
         public void ResetAllPrintables()
