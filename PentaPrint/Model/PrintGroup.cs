@@ -48,6 +48,11 @@ namespace PentaPrint.Model
             return clone;
         }
 
+        public void UpdateHeader()
+        {
+            Header = this.ToString();
+        }
+
         public PrintGroup()
         {
             Printables = new Dictionary<string, IPrint>();

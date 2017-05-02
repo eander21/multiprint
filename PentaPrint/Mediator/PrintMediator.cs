@@ -87,6 +87,7 @@ namespace PentaPrint.Mediator
             {
                 printGroup.Printables.Add(print.Key, (IPrint)print.Value.Clone());
             }
+            printGroup.UpdateHeader();
             History.Add(printGroup);
         }
 
