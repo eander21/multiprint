@@ -83,7 +83,6 @@
     <Compile Include="ViewModel\MainwWindowViewModel.cs" />
     <Compile Include="Commands\Saveable.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
-    <Compile Include="ViewModel\VerificationControlViewModel.cs" />
     <Compile Include="View\Field\Injectors.xaml.cs">
       <DependentUpon>Injectors.xaml</DependentUpon>
     </Compile>
@@ -100,13 +99,13 @@
     <Compile Include="Model\Verifiable.cs" />
     <Compile Include="Themes\LeftMarginMultiplierConverter.cs" />
     <Compile Include="Themes\TreeViewItemExtensions.cs" />
-    <Compile Include="View\VerificationControl.xaml.cs">
-      <DependentUpon>VerificationControl.xaml</DependentUpon>
+    <Compile Include="View\Verification\MainEngine.xaml.cs">
+      <DependentUpon>MainEngine.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\VerificationControl.xaml">
+    <Page Include="View\Verification\MainEngine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,6 +8,6 @@ namespace PentaPrint.Model
 {
     interface Verifiable
     {
-        bool Verify(string input);
+        bool Verify(string input, out string errorText);
     }
 }

@@ -42,8 +42,8 @@
                 </TabItem>
                 <TabItem Header="Verify">
                     <DockPanel>
-                        <Button Content="_Verify" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
-                                Command="{Binding VerifyAll, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--<Button Content="_Verify" Width="Auto" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Margin="5" Padding="10 3"
+                                Command="{Binding VerifyAll, UpdateSourceTrigger=PropertyChanged}" /> -->
                         <StackPanel DockPanel.Dock="Top" x:Name="VerifyContent">
 
                         </StackPanel>

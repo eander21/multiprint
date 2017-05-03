@@ -38,9 +38,10 @@ namespace PentaPrint.Mediator
         {
             foreach(var veriable in Verifiables)
             {
-                if (!verificators[veriable.Key].Verify(veriable.Value))
+                string error = "";
+                if (!verificators[veriable.Key].Verify(veriable.Value, out error))
                 {
-                    MessageBox.Show("Invalid data in "+ veriable.Key, "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Invalid data in "+ veriable.Key+"\n"+error,"Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
             }

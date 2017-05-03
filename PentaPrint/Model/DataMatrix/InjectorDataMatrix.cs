@@ -169,8 +169,10 @@ namespace PentaPrint.Model
             //throw new NotImplementedException();
         }
 
-        public override bool Verify(string input)
+        public override bool Verify(string input, out string errorText)
         {
+            errorText = "ERROR ERROR, MY ROBOT BALLS";
+            return false;
             throw new NotImplementedException();
         }
 

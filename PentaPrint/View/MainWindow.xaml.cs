@@ -123,9 +123,15 @@ namespace PentaPrint
             List<UIElement> result = new List<UIElement>();
             foreach (string field in inputFields)
             {
-                var vc = new VerificationControl();
-                vc.LabelContent = field;
-                result.Add(vc);
+                var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.Equals("PentaPrint.View.Verification"));
+                foreach (var type in types)
+                {
+                    if (type.Name.Equals(field))
+                    {
+                        var instance = Activator.CreateInstance(type);
+                        result.Add((UIElement)instance);
+                    }
+                }
             }
             return result;
         }

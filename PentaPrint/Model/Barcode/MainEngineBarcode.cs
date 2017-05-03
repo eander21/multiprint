@@ -98,9 +98,10 @@ namespace PentaPrint.Model
             return Regex.IsMatch(Partnumber, @"^\d{8}$") && Regex.IsMatch(Serialnumber, @"^\d{8}$");
         }
 
-        public override bool Verify(string input)
+        public override bool Verify(string input, out string errorText)
         {
-            throw new NotImplementedException();
+            errorText = "ERROR ERROR, MY ROBOT BALLS";
+            return false;
         }
 
         public override void Reset()
