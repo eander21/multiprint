@@ -26,7 +26,7 @@ namespace PentaPrint.ViewModel
 
         public MainwWindowViewModel()
         {
-            printMediator.SetupTestPrintGroups();
+            //printMediator.SetupTestPrintGroups();
             History = printMediator.History;
 
             PrintAll = new CommandGroup();

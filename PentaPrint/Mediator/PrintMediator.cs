@@ -17,6 +17,7 @@ namespace PentaPrint.Mediator
         private Dictionary<String, IPrint> _printables;
 
         public ObservableCollection<PrintGroup> History { get; set; }
+        private static int HISTORY_DEPTH = 5;
         //private GlobalSettings globalSettings = GlobalSettings.Instance;
         public Printer Printer { get; set; }
         public event Action<string> PrintableChanged;
@@ -92,14 +93,23 @@ namespace PentaPrint.Mediator
                 printGroup.Printables.Add(print.Key, (IPrint)print.Value.Clone());
             }
             printGroup.UpdateHeader();
-            History.Add(printGroup);
+            AddToHistory(printGroup);
         }
         public void PushToHistory(string key)
         {
             var printGroup = new PrintGroup();
             printGroup.Printables.Add(key, (IPrint)_printables[key].Clone());
             printGroup.UpdateHeader();
+            AddToHistory(printGroup);
+        }
+
+        public void AddToHistory(PrintGroup printGroup)
+        {
             History.Add(printGroup);
+            if (History.Count > HISTORY_DEPTH)
+            {
+                History.RemoveAt(0);
+            }
         }
 
         public void ResetPrintable(string key)
