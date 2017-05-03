@@ -66,12 +66,17 @@ namespace PentaPrint
 
             setupInputFields(inputPanel);
 
-            //setupVerifyFields(verifyPanel);
+            setupVerifyFields(verifyPanel);
         }
 
         private void setupVerifyFields(StackPanel verifyPanel)
         {
-            throw new NotImplementedException();
+            var fields = ParseVerifyFields(Properties.Settings.Default.InputFields);
+
+            foreach (var group in fields)
+            {
+                verifyPanel.Children.Add(group);
+            }
         }
 
         private void setupInputFields(StackPanel mainPanel)
@@ -103,6 +108,24 @@ namespace PentaPrint
                         result.Add((UIElement)instance);
                     }
                 }
+            }
+            return result;
+        }
+
+
+        /// <summary>
+        /// Sets up the input fields from the configuration file
+        /// </summary>
+        /// <param name="inputFields"></param>
+        /// <returns></returns>
+        private List<UIElement> ParseVerifyFields(StringCollection inputFields)
+        {
+            List<UIElement> result = new List<UIElement>();
+            foreach (string field in inputFields)
+            {
+                var vc = new VerificationControl();
+                vc.LabelContent = field;
+                result.Add(vc);
             }
             return result;
         }

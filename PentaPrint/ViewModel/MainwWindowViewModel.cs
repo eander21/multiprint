@@ -19,6 +19,7 @@ namespace PentaPrint.ViewModel
         PrintMediator printMediator = PrintMediator.Instance;
         public ObservableCollection<PrintGroup> History { get; set; }
         public CommandGroup PrintAll { get; private set; }
+        public CommandGroup VerifyAll { get; private set; }
         public ICommand RetrieveHistory { get; private set; }
         public CommandGroup PrintOne { get; private set; }
         public ICommand OpenDialog { get; private set; }
@@ -37,6 +38,9 @@ namespace PentaPrint.ViewModel
             PrintOne.Commands.Add(new PrintCommand(printMediator));
             PrintOne.Commands.Add(new PushAllToHistory(printMediator));
             PrintOne.Commands.Add(new ResetAll(printMediator));
+
+            VerifyAll = new CommandGroup();
+            VerifyAll.Commands.Add(new VerifyPrint(VerificationMediator.Instance,true));
 
 
             RetrieveHistory = new RetrieveHistory(printMediator);

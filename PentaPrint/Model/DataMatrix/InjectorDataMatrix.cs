@@ -85,7 +85,13 @@ namespace PentaPrint.Model
 
         public InjectorDataMatrix()
         {
-            mainEngine = (MainEngineBarcode)printMediator.GetPrintable("MainEngine");
+            try
+            {
+                mainEngine = (MainEngineBarcode)printMediator.GetPrintable("MainEngine");
+            } catch
+            {
+                mainEngine = null;
+            }
             setupConvertionTable();
         }
 
