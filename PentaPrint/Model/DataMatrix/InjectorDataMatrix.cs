@@ -423,35 +423,76 @@ namespace PentaPrint.Model
                         if (!String.IsNullOrEmpty(Injector1))
                         {
                             errorMessage = GetErrorMessage(Injector1);
+                            if (String.IsNullOrEmpty(errorMessage))
+                                errorMessage = CheckDupes(Injector1);
                         }
                         break;
                     case "Injector2":
                         if (!String.IsNullOrEmpty(Injector2))
                         {
                             errorMessage = GetErrorMessage(Injector2);
+                            if (String.IsNullOrEmpty(errorMessage))
+                                errorMessage = CheckDupes(Injector2);
                         }
                         break;
                     case "Injector3":
                         if (!String.IsNullOrEmpty(Injector3))
                         {
                             errorMessage = GetErrorMessage(Injector3);
+                            if (String.IsNullOrEmpty(errorMessage))
+                                errorMessage = CheckDupes(Injector3);
                         }
                         break;
                     case "Injector4":
                         if (!String.IsNullOrEmpty(Injector4))
                         {
                             errorMessage = GetErrorMessage(Injector4);
+                            if (String.IsNullOrEmpty(errorMessage))
+                                errorMessage = CheckDupes(Injector4);
                         }
                         break;
                     case "Injector5":
                         if (!String.IsNullOrEmpty(Injector5))
                         {
                             errorMessage = GetErrorMessage(Injector5);
+                            if (String.IsNullOrEmpty(errorMessage))
+                                errorMessage = CheckDupes(Injector5);
                         }
                         break;
 
                 }
                 return errorMessage;
+            }
+        }
+
+        private string CheckDupes(string injector)
+        {
+            string result = String.Empty;
+            List<string> inj = new List<string>();
+            if (injector.Equals(Injector1))
+                inj.Add("Injector 1");
+            if (injector.Equals(Injector2))
+                inj.Add("Injector 2");
+            if (injector.Equals(Injector3))
+                inj.Add("Injector 3");
+            if (injector.Equals(Injector4))
+                inj.Add("Injector 4");
+            if (injector.Equals(Injector5))
+                inj.Add("Injector 5");
+
+            if (inj.Count <= 1)
+                return result;
+            else
+            {
+                int i = 0;
+                foreach (string str in inj)
+                {
+                    result += str;
+                    if (i < inj.Count)
+                        result += " and ";
+                }
+                result += " are equal.";
+                return result;
             }
         }
 
