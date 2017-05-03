@@ -404,39 +404,50 @@ namespace PentaPrint.Model
                 switch (columnName)
                 {
                     case "Injector1":
-                        if (!String.IsNullOrEmpty(Injector1) && !IsValid(Injector1))
+                        if (!String.IsNullOrEmpty(Injector1))
                         {
-                            errorMessage = "Injector 1 is not valid. Checksum Error";
+                            errorMessage = GetErrorMessage(Injector1);
                         }
                         break;
                     case "Injector2":
                         if (!String.IsNullOrEmpty(Injector2) && !IsValid(Injector2))
                         {
-                            errorMessage = "Injector 2 is not valid. Checksum Error";
+                            errorMessage = GetErrorMessage(Injector2);
                         }
                         break;
                     case "Injector3":
                         if (!String.IsNullOrEmpty(Injector3) && !IsValid(Injector3))
                         {
-                            errorMessage = "Injector 3 is not valid. Checksum Error";
+                            errorMessage = GetErrorMessage(Injector3);
                         }
                         break;
                     case "Injector4":
                         if (!String.IsNullOrEmpty(Injector4) && !IsValid(Injector4))
                         {
-                            errorMessage = "Injector 4 is not valid. Checksum Error";
+                            errorMessage = GetErrorMessage(Injector4);
                         }
                         break;
                     case "Injector5":
                         if (!String.IsNullOrEmpty(Injector5) && !IsValid(Injector5))
                         {
-                            errorMessage = "Injector 5 is not valid. Checksum Error";
+                            errorMessage = GetErrorMessage(Injector5);
                         }
                         break;
 
                 }
                 return errorMessage;
             }
+        }
+
+        private string GetErrorMessage(string inputInjector)
+        {
+            if (inputInjector.Length != 8)
+                return "Invalid Length";
+            if (!Regex.IsMatch(inputInjector, "^"+VALID_INJ_CHARS+"{8}$"))
+                return "Invalid characters";
+            if (!IsValid(inputInjector))
+                return "Checksum error";
+            return String.Empty;
         }
 
         #endregion
