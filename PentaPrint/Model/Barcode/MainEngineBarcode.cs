@@ -56,15 +56,15 @@ namespace PentaPrint.Model
                 switch (columnName)
                 {
                     case "Partnumber":
-                        if (!String.IsNullOrEmpty(Partnumber) && !Regex.IsMatch(Partnumber, @"^\d{8}$"))
+                        if (!String.IsNullOrEmpty(Partnumber) && !Regex.IsMatch(Partnumber, @"^\d+$"))
                         {
-                            errorMessage = "Partnumber needs to be 8 digits long";
+                            errorMessage = "Partnumber should contain only digits";
                         }
                         break;
                     case "Serialnumber":
-                        if (!String.IsNullOrEmpty(Serialnumber) && !Regex.IsMatch(Serialnumber, @"^\d{8}$")) 
+                        if (!String.IsNullOrEmpty(Serialnumber) && !Regex.IsMatch(Serialnumber, @"^\d+$")) 
                         {
-                            errorMessage = "Serialnumber is required";
+                            errorMessage = "Serialnumber should contain only digits";
                         }
                         break;
                 }
@@ -95,7 +95,7 @@ namespace PentaPrint.Model
             if (String.IsNullOrEmpty(Partnumber) || String.IsNullOrEmpty(Serialnumber))
                 return false;
 
-            return Regex.IsMatch(Partnumber, @"^\d{8}$") && Regex.IsMatch(Serialnumber, @"^\d{8}$");
+            return Regex.IsMatch(Partnumber, @"^\d+$") && Regex.IsMatch(Serialnumber, @"^\d+$");
         }
 
         public override bool Verify(string input, out string errorText)
@@ -108,6 +108,11 @@ namespace PentaPrint.Model
             else if(input[0]!='P' && input[0] != 'T')
             {
                 errorText = "Barcode does not start with P (Partnumber) or T (Serialnumber)";
+                return false;
+            }
+            else if (!Regex.IsMatch(input,@"[PT]\d+"))
+            {
+                errorText = "Barcode does not contain only numerical characters";
                 return false;
             }
 
