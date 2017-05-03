@@ -50,9 +50,10 @@ namespace PentaPrint.Mediator
 
         internal void SetCurrentPrintGroup(PrintGroup printGroup)
         {
-            _printables = printGroup.GetPrintablesClone();
-            foreach(var printable in _printables)
+            _printables = new Dictionary<string, IPrint>();
+            foreach(var printable in printGroup.Printables)
             {
+                AddPrintable(printable.Key, (IPrint)printable.Value.Clone());
                 PrintableChanged.Invoke(printable.Key);
             }
             //throw new NotImplementedException();
