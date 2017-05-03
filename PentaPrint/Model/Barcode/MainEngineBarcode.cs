@@ -110,6 +110,11 @@ namespace PentaPrint.Model
                 errorText = "Barcode does not start with P (Partnumber) or T (Serialnumber)";
                 return false;
             }
+            else if (input.Length <= 1)
+            {
+                errorText = "Barcode length to short";
+                return false;
+            }
             else if (!Regex.IsMatch(input,@"[PT]\d+"))
             {
                 errorText = "Barcode does not contain only numerical characters";

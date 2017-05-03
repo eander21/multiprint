@@ -25,7 +25,8 @@ namespace PentaPrint.View.Verification
     /// </summary>
     public partial class MainEngine : UserControl, IDataErrorInfo
     {
-        public string Value { get; set; }
+        public string Partnumber { get; set; }
+        public string Serialnumber { get; set; }
         private Verifiable mainEngine;
         public MainEngine()
         {
@@ -47,13 +48,22 @@ namespace PentaPrint.View.Verification
         {
             get
             {
-                string error = null;
+                string error = String.Empty;
 
-                if (name == "Value")
+                if (name == "Partnumber")
                 {
-                    if (!String.IsNullOrEmpty(Value))
+                    if (!String.IsNullOrEmpty(Partnumber))
                     {
-                        mainEngine.Verify(Value, out error);
+                        mainEngine.Verify(Partnumber, out error);
+                        return error;
+                    }
+                }
+                if (name == "Serialnumber")
+                {
+                    if (!String.IsNullOrEmpty(Serialnumber))
+                    {
+                        mainEngine.Verify(Serialnumber, out error);
+                        return error;
                     }
                 }
                 return error;

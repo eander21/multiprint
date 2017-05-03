@@ -4,17 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PentaPrint.View.Verification"
-             mc:Ignorable="d" d:DesignWidth="300" Height="30">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Label Content="Main Engine" Grid.Column="0" Grid.Row="0" Width="Auto"/>
-        <TextBox x:Name="Input" Grid.Column="1" Grid.Row="0" Margin="2" Text="{Binding Value, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                  ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-    </Grid>
+             mc:Ignorable="d" d:DesignWidth="300" Height="75">
+    <GroupBox Header="Main Engine">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Partnumber" Grid.Column="0" Grid.Row="0"/>
+            <TextBox x:Name="Part" Grid.Column="1" Grid.Row="0" Margin="2" Text="{Binding Partnumber, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+
+            <Label Content="Serialnumber" Grid.Column="0" Grid.Row="1"/>
+            <TextBox x:Name="Serial" Grid.Column="1" Grid.Row="1" Margin="2" Text="{Binding Serialnumber, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+        </Grid>
+    </GroupBox>
 </UserControl>
