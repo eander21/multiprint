@@ -244,11 +244,11 @@ namespace PentaPrint.Model
             sb.Append("SP");
             sb.Append(GetSerialNumber());
             sb.Append("%##");
-            sb.Append(Injector1);
-            sb.Append(Injector2);
-            sb.Append(Injector3);
-            sb.Append(Injector4);
-            sb.Append(Injector5);
+            sb.Append(ParseInjector(Injector1));
+            sb.Append(ParseInjector(Injector2));
+            sb.Append(ParseInjector(Injector3));
+            sb.Append(ParseInjector(Injector4));
+            sb.Append(ParseInjector(Injector5));
             sb.Append("%<");
             return sb.ToString();
         }
@@ -283,11 +283,13 @@ namespace PentaPrint.Model
             Injector5 = "";
         }
 
-        private bool IsValid(string injector)
+        private bool IsValid(string injector, bool parse=false)
         {
             //injector = "6A1AIB5H";
             try
             {
+                if(parse)
+                    injector = ParseInjector(injector);
                 //Convert String to decimal
                 var shorts = GetShorts(injector);
                 //Get 5bit values and concatenate
@@ -306,6 +308,20 @@ namespace PentaPrint.Model
             }
 
             //return injector !=null && injector.Length==8;
+        }
+
+        private string ParseInjector(string injector)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(injector[1]);
+            sb.Append(injector[12]);
+            sb.Append(injector[13]);
+            sb.Append(injector[14]);
+            sb.Append(injector[15]);
+            sb.Append(injector[16]);
+            sb.Append(injector[17]);
+            sb.Append(injector[18]);
+            return sb.ToString();
         }
 
         private short GetChecksum(List<short> iqa)
@@ -410,25 +426,25 @@ namespace PentaPrint.Model
                         }
                         break;
                     case "Injector2":
-                        if (!String.IsNullOrEmpty(Injector2) && !IsValid(Injector2))
+                        if (!String.IsNullOrEmpty(Injector2))
                         {
                             errorMessage = GetErrorMessage(Injector2);
                         }
                         break;
                     case "Injector3":
-                        if (!String.IsNullOrEmpty(Injector3) && !IsValid(Injector3))
+                        if (!String.IsNullOrEmpty(Injector3))
                         {
                             errorMessage = GetErrorMessage(Injector3);
                         }
                         break;
                     case "Injector4":
-                        if (!String.IsNullOrEmpty(Injector4) && !IsValid(Injector4))
+                        if (!String.IsNullOrEmpty(Injector4))
                         {
                             errorMessage = GetErrorMessage(Injector4);
                         }
                         break;
                     case "Injector5":
-                        if (!String.IsNullOrEmpty(Injector5) && !IsValid(Injector5))
+                        if (!String.IsNullOrEmpty(Injector5))
                         {
                             errorMessage = GetErrorMessage(Injector5);
                         }
@@ -441,11 +457,14 @@ namespace PentaPrint.Model
 
         private string GetErrorMessage(string inputInjector)
         {
-            if (inputInjector.Length != 8)
-                return "Invalid Length";
-            if (!Regex.IsMatch(inputInjector, "^"+VALID_INJ_CHARS+"{8}$"))
-                return "Invalid characters";
-            if (!IsValid(inputInjector))
+            if (inputInjector.Length != 22)
+                return "Invalid Length, Expected 22";
+            
+            var inj = ParseInjector(inputInjector);
+            if (!Regex.IsMatch(inj, "^"+VALID_INJ_CHARS+"{8}$"))
+                return "Invalid characters in injector code";
+
+            if (!IsValid(inj))
                 return "Checksum error";
             return String.Empty;
         }
