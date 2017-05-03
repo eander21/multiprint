@@ -313,7 +313,7 @@ namespace PentaPrint.Model
             short sum = (short)iqa.Sum(s => s);
             sum -= (short)iqa[0]; //Subtract classification
             sum -= (short)iqa[5]; //Subtract current checksum
-            short highNibble = (byte)(0xF0 & sum);
+            short highNibble = (byte)((0xF0 & sum) >>4);
             short lowNibble = (byte)(0x0F & sum);
 
 
