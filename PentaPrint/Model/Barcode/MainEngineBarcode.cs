@@ -100,8 +100,19 @@ namespace PentaPrint.Model
 
         public override bool Verify(string input, out string errorText)
         {
-            errorText = "ERROR ERROR, MY ROBOT BALLS";
-            return false;
+            if (String.IsNullOrEmpty(input))
+            {
+                errorText = "ERROR ERROR, MY ROBOT BALLS";
+                return false;
+            }
+            else if(input[0]!='P' && input[0] != 'T')
+            {
+                errorText = "Barcode does not start with P (Partnumber) or T (Serialnumber)";
+                return false;
+            }
+
+            errorText = null;
+            return true;
         }
 
         public override void Reset()
