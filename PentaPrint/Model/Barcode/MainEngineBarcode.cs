@@ -86,7 +86,7 @@ namespace PentaPrint.Model
             {
                 var template = reader.ReadToEnd();
                 var result = template.Replace(@"|PARTNUMBER|", Partnumber);
-                result = template.Replace(@"|SERIALNUMBER|", Serialnumber);
+                result = result.Replace(@"|SERIALNUMBER|", Serialnumber);
                 return result;
             }
         }
