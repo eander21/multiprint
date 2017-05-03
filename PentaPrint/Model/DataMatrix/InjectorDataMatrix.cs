@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PentaPrint.Model
@@ -82,6 +83,7 @@ namespace PentaPrint.Model
         private PrintMediator printMediator = PrintMediator.Instance;
         private MainEngineBarcode mainEngine;
         private Dictionary<char, short> convertionTable;
+        private static string VALID_INJ_CHARS = "[1-8A-IK-PR-Z]";
 
         public InjectorDataMatrix()
         {
@@ -113,12 +115,14 @@ namespace PentaPrint.Model
             convertionTable.Add('G', 6);
             convertionTable.Add('H', 7);
             convertionTable.Add('I', 8);
+
             convertionTable.Add('K', 9);
             convertionTable.Add('L', 10);
             convertionTable.Add('M', 11);
             convertionTable.Add('N', 12);
             convertionTable.Add('O', 13);
             convertionTable.Add('P', 14);
+
             convertionTable.Add('R', 15);
             convertionTable.Add('S', 16);
             convertionTable.Add('T', 17);
@@ -171,9 +175,67 @@ namespace PentaPrint.Model
 
         public override bool Verify(string input, out string errorText)
         {
-            errorText = "ERROR ERROR, MY ROBOT BALLS";
-            return false;
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(input))
+            {
+                errorText = "ERROR ERROR, MY ROBOT BALLS";
+                return false;
+            }
+            if (!input.StartsWith("SP"))
+            {
+                errorText = "DataMatrix does not start with SP";
+                return false;
+            }
+            if (!Regex.IsMatch(input, @".*%<$"))
+            {
+                errorText = "DataMatrix does not include valid end sequence (%<)";
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^SP\d+"))
+            {
+                errorText = "DataMatrix does not include a valid serial number";
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^SP\d+%##"))
+            {
+                errorText = "DataMatrix does not include a valid serial number separator (%##)";
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^SP\d+%##(.{8}){5}%<$"))
+            {
+                errorText = "The Injector-part of the DataMatrix does not contain correct amount of characters";
+                return false;
+            }
+            if (!Regex.IsMatch(input, @"^SP\d+%##("+VALID_INJ_CHARS+ "{8}){5}%<$"))
+            {
+                errorText = "The Injector-part of the DataMatrix contains invalid characters";
+                return false;
+            }
+
+
+            List<String> injectors = new List<string>();
+            foreach(Match match in Regex.Matches(input, @"^SP\d+%##(?<inj>.{8}){5}%<$"))
+            {
+                Group group = match.Groups["inj"];
+                foreach(Capture capture in group.Captures)
+                {
+                    injectors.Add(capture.Value);
+                }
+            }
+
+            int inj = 1;
+            foreach(string injector in injectors)
+            {
+                if (!IsValid(injector))
+                {
+                    errorText = "Injector "+inj+" contains checksum-error";
+                    return false;
+                }
+                inj++;
+            }
+
+
+            errorText = null;
+            return true;
         }
 
         private string GetFullCode()
