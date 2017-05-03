@@ -313,7 +313,7 @@ namespace PentaPrint.Model
         private string ParseInjector(string injector)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(injector[1]);
+            sb.Append(injector[19]);
             sb.Append(injector[12]);
             sb.Append(injector[13]);
             sb.Append(injector[14]);
