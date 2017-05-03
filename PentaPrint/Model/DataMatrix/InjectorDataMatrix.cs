@@ -165,11 +165,11 @@ namespace PentaPrint.Model
                 String.IsNullOrEmpty(Injector5))
                 return false;
 
-            return (IsValid(Injector1) &&
-                IsValid(Injector2) &&
-                IsValid(Injector3) &&
-                IsValid(Injector4) &&
-                IsValid(Injector5));
+            return (IsValid(Injector1,true) &&
+                IsValid(Injector2, true) &&
+                IsValid(Injector3, true) &&
+                IsValid(Injector4, true) &&
+                IsValid(Injector5, true));
             //throw new NotImplementedException();
         }
 
