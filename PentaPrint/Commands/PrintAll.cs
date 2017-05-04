@@ -37,6 +37,8 @@ namespace PentaPrint.Commands
        
         public bool CanExecute(object parameter)
         {
+            if (!printMediator.Printer.IsOpen())
+                return false;
             if (!GlobalSettings.Instance.PrintValidation)
                 return true;
 
