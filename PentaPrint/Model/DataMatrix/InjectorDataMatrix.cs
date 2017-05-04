@@ -173,7 +173,7 @@ namespace PentaPrint.Model
 
 
 
-            return valid && !HasDupes();
+            return valid && !HasDupes() && !HasErrorMessage();
             //throw new NotImplementedException();
         }
 
@@ -483,6 +483,20 @@ namespace PentaPrint.Model
                 return true;
             return false;
         }
+        private bool HasErrorMessage()
+        {
+            if (!String.IsNullOrEmpty(GetErrorMessage(Injector1)))
+                return true;
+            if (!String.IsNullOrEmpty(GetErrorMessage(Injector2)))
+                return true;
+            if (!String.IsNullOrEmpty(GetErrorMessage(Injector3)))
+                return true;
+            if (!String.IsNullOrEmpty(GetErrorMessage(Injector4)))
+                return true;
+            if (!String.IsNullOrEmpty(GetErrorMessage(Injector5)))
+                return true;
+            return false;
+        }
 
         private string CheckDupes(string injector)
         {
@@ -504,13 +518,13 @@ namespace PentaPrint.Model
             else
             {
                 int i = 0;
-                foreach (string str in inj)
+                /*foreach (string str in inj)
                 {
                     result += str;
                     if (i < inj.Count)
                         result += " and ";
-                }
-                result += " are equal.";
+                }*/
+                result += "Duplicates exists";
                 return result;
             }
         }
