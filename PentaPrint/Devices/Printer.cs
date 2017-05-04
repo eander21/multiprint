@@ -68,14 +68,19 @@ namespace PentaPrint.Devices
 
         public event EventHandler CanExecuteChanged;
 
-        public void Write(String str)
+        public bool Write(String str)
         {
-            Serial.Write(str);
+            if (Serial != null && Serial.IsOpen)
+            {
+                Serial.Write(str);
+                return true;
+            }
+            return false;
         }
 
-        public void Write(Printable print)
+        public bool Write(Printable print)
         {
-            Serial.Write(print.GetPrint());
+            return Write(print.GetPrint());
         }
 
         public bool CanExecute(object parameter)
@@ -92,6 +97,10 @@ namespace PentaPrint.Devices
             {
                 Write((Printable)parameter);
             }
+        }
+        public bool IsOpen()
+        {
+            return Serial != null && Serial.IsOpen;
         }
 
         ~Printer()

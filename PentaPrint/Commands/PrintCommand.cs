@@ -47,7 +47,8 @@ namespace PentaPrint.Commands
         public void Execute(object parameter)
         {
             var printable = printMediator.GetPrintable((string)parameter);
-            printMediator.Printer.Write(printable);
+            if(!printMediator.Printer.Write(printable))
+                MessageBox.Show("Failed to print! Printer not available", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

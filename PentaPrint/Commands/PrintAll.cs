@@ -50,10 +50,15 @@ namespace PentaPrint.Commands
 
         public void Execute(object parameter)
         {
-            foreach(var print in printMediator.GetAllPrintables())
+            if (printMediator.Printer.IsOpen())
             {
-                printMediator.Printer.Write(print.Value);
+                foreach(var print in printMediator.GetAllPrintables())
+                {
+                    printMediator.Printer.Write(print.Value);
+                }
             }
+            else
+                MessageBox.Show("Failed to print! Printer not available", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
