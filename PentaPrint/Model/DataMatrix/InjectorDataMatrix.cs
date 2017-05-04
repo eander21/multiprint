@@ -165,11 +165,15 @@ namespace PentaPrint.Model
                 String.IsNullOrEmpty(Injector5))
                 return false;
 
-            return (IsValid(Injector1,true) &&
-                IsValid(Injector2, true) &&
-                IsValid(Injector3, true) &&
-                IsValid(Injector4, true) &&
-                IsValid(Injector5, true));
+            var valid = (IsValid(Injector1,true) &&
+            IsValid(Injector2, true) &&
+            IsValid(Injector3, true) &&
+            IsValid(Injector4, true) &&
+            IsValid(Injector5, true));
+
+
+
+            return valid && !HasDupes();
             //throw new NotImplementedException();
         }
 
@@ -463,6 +467,21 @@ namespace PentaPrint.Model
                 }
                 return errorMessage;
             }
+        }
+
+        private bool HasDupes()
+        {
+            if (!String.IsNullOrEmpty(CheckDupes(Injector1)))
+                return true;
+            if (!String.IsNullOrEmpty(CheckDupes(Injector2)))
+                return true;
+            if (!String.IsNullOrEmpty(CheckDupes(Injector3)))
+                return true;
+            if (!String.IsNullOrEmpty(CheckDupes(Injector4)))
+                return true;
+            if (!String.IsNullOrEmpty(CheckDupes(Injector5)))
+                return true;
+            return false;
         }
 
         private string CheckDupes(string injector)
