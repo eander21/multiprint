@@ -355,7 +355,10 @@ namespace PentaPrint.Model
                 }
                 result = (short)((int)item | minus) ;
             }
-            
+            if (item < -8)
+                return (byte)(0x0F & result);
+
+
             return result;
         }
 
