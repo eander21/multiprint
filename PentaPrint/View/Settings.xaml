@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PentaPrint.View"
         xmlns:properties="clr-namespace:PentaPrint.Properties"
         mc:Ignorable="d"
-        Title="Settings" Width="350"  Height="135" 
+        Title="Settings" Width="350"  Height="167.661" 
         Style="{StaticResource {x:Type Window}}"
         x:Name="SettingsWindow">
     <DockPanel Height="Auto">
@@ -30,6 +30,9 @@
 
                     <Label Content="Baud rate: " Grid.Column="0" Grid.Row="1"/>
                     <ComboBox x:Name="BaudRate" Grid.Column="1" Grid.Row="1" Margin="2" ItemsSource="{Binding AvailableBaudrates}" SelectedItem="{Binding CurrentBaud}"/>
+                    <Label Content="Active Profile: " Grid.Column="0" Grid.Row="1" Margin="0,24,0,-24"/>
+                    <ComboBox x:Name="ActiveProfile" Grid.Column="1" Grid.Row="1" Margin="1.6,28,2.2,-24" ItemsSource="{Binding AvailableBaudrates}" SelectedItem="{Binding CurrentBaud}" Grid.ColumnSpan="1"/>
+
                 </Grid>
             </GroupBox>
         </StackPanel>

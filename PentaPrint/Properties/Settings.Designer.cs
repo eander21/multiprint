@@ -12,7 +12,7 @@ namespace PentaPrint.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace PentaPrint.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Penta Print")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MultiPrint")]
         public string ApplicationName {
             get {
                 return ((string)(this["ApplicationName"]));
@@ -36,7 +36,7 @@ namespace PentaPrint.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>MainEngine</string>\r\n  <string>Injectors</string>\r\n</ArrayOfString>")]
+            "tring>MEP1</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection InputFields {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["InputFields"]));
@@ -73,6 +73,28 @@ namespace PentaPrint.Properties {
         public bool PrintValidation {
             get {
                 return ((bool)(this["PrintValidation"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z[a-zA-Z0-9]{4}(?<resolv>[a-zA-Z0-9]{4})[a-z" +
+            "A-Z0-9]{4}#$")]
+        public string ResolverOffsetPattern {
+            get {
+                return ((string)(this["ResolverOffsetPattern"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^P(?<partnumber>[0-9]*)#S(?<serialnumber>.*)#.*V[a-zA-Z0-9]{5}#$")]
+        public string LaserMarkingPattern {
+            get {
+                return ((string)(this["LaserMarkingPattern"]));
+            }
+            set {
+                this["LaserMarkingPattern"] = value;
             }
         }
     }

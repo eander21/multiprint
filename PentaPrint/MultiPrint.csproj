@@ -7,12 +7,13 @@
     <ProjectGuid>{5EC3C9A7-352B-42D8-96C3-179DDFFE2BF5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>PentaPrint</RootNamespace>
-    <AssemblyName>PentaPrint</AssemblyName>
+    <AssemblyName>MultiPrint</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -89,9 +89,11 @@
     <Compile Include="Mediator\GlobalSettings.cs" />
     <Compile Include="Mediator\VerificationMediator.cs" />
     <Compile Include="Mediator\PrintMediator.cs" />
+    <Compile Include="Model\DataMatrix\MEP1DataMatrix.cs" />
     <Compile Include="Model\IPrint.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\PrintGroup.cs" />
+    <Compile Include="ViewModel\Field\MEP1ViewModel.cs" />
     <Compile Include="ViewModel\Field\FieldViewModel.cs" />
     <Compile Include="ViewModel\Field\InjectorsViewModel.cs" />
     <Compile Include="ViewModel\Field\MainEngineViewModel.cs" />
@@ -100,6 +102,9 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="View\Field\Injectors.xaml.cs">
       <DependentUpon>Injectors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Field\MEP1.xaml.cs">
+      <DependentUpon>MEP1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Field\MainEngine.xaml.cs">
       <DependentUpon>MainEngine.xaml</DependentUpon>
@@ -123,6 +128,10 @@
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Field\MEP1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Verification\Injectors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -210,6 +219,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Model\DataMatrix\MEP1Template.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
