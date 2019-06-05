@@ -21,10 +21,26 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ResolverOffsetPattern" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z[a-zA-Z0-9]{4}(?&lt;resolv&gt;[a-zA-Z0-9]{4})[a-zA-Z0-9]{4}#$</Value>
+      <Value Profile="(Default)">^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z(?&lt;resolv&gt;[a-zA-Z0-9]{4}[a-zA-Z0-9]{4}[a-zA-Z0-9]{4})#$</Value>
     </Setting>
     <Setting Name="LaserMarkingPattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">^P(?&lt;partnumber&gt;[0-9]*)#T(?&lt;serialnumber&gt;.*)#.*V[a-zA-Z0-9]{5}#$</Value>
+    </Setting>
+    <Setting Name="SupplierId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CHN08</Value>
+    </Setting>
+    <Setting Name="CertificationCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EPA-ATA</Value>
+    </Setting>
+    <Setting Name="Origin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Made in China</Value>
+    </Setting>
+    <Setting Name="VariantMap" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;1216557;ERAD&lt;/string&gt;
+  &lt;string&gt;1216558;EFAD&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -17,6 +17,8 @@ namespace PentaPrint.Model
         String _resolverOffsetPattern;
         //Regex used to parse final partnumber and serialnumber from lasermarking
         String _laserMarkingPattern;
+        //Dictionary used to map a final partnumber to a variant (ERAD or EFAD)
+        Dictionary<String, String> variantMap = new Dictionary<String, String>();
 
         #region Members
         private string _scannerInput;
@@ -87,21 +89,24 @@ namespace PentaPrint.Model
             //TODO Add error handling if properties are missing
             _resolverOffsetPattern = Properties.Settings.Default.ResolverOffsetPattern;
             _laserMarkingPattern = Properties.Settings.Default.LaserMarkingPattern;
+            SetupVariants();
         }
 
         public override string GetPrint()
         {
             var assembly = Assembly.GetExecutingAssembly();
-
-            String[] test = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
             var resourceName = "PentaPrint.Model.DataMatrix.MEP1Template.txt";
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
             {
                 var result = reader.ReadToEnd();
-                result = result.Replace(@"|PARTNUMBER|", _partnumber); //TODO Replace with proper get-methods
+                result = result.Replace(@"|VARIANT|", GetVariant());
+                result = result.Replace(@"|DMCINFO|", GetDMCInfo());
                 result = result.Replace(@"|SERIALNUMBER|", _serialnumber);
-                result = result.Replace(@"|RESOLVEROFFSET|", _resolveroffset);
+                result = result.Replace(@"|SUPPLIERID|", GetSupplierId());
+                result = result.Replace(@"|CERTIFICATIONCODE|", GetCertificationCode());
+                result = result.Replace(@"|ORIGIN|", GetOrigin());
+                result = result.Replace(@"|PARTNUMBER|", _partnumber);                                
                 return result;
             }
         }
@@ -239,6 +244,45 @@ namespace PentaPrint.Model
         {
             MEP1DataMatrix clone = new MEP1DataMatrix();
             return clone;
+        }
+
+        private String GetDMCInfo()
+        {
+            return "P" + _partnumber + "#T" + SerialNumber + "#V" + GetSupplierId() + "#Z" + _resolveroffset + "#";
+        }
+
+        private String GetSupplierId()
+        {
+            return Properties.Settings.Default.SupplierId;
+        }
+
+        private String GetCertificationCode()
+        {
+            return Properties.Settings.Default.CertificationCode;
+        }
+
+        //TODO Handle case where key is not found
+        private String GetVariant()
+        {
+            return variantMap[_partnumber];
+        }
+
+        private String GetOrigin()
+        {
+            return Properties.Settings.Default.Origin;
+        }
+
+        private void SetupVariants()
+        {
+            System.Collections.Specialized.StringCollection variantList = Properties.Settings.Default.VariantMap;
+            foreach(String entry in variantList)
+            {
+                String[] split = entry.Split(';');
+                if(split.Length == 2)
+                {
+                    variantMap.Add(split[0], split[1]);
+                }
+            }
         }
     }
 }

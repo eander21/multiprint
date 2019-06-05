@@ -240,8 +240,5 @@
   <ItemGroup>
     <EmbeddedResource Include="Model\DataMatrix\MEP1Template.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model\DataMatrix\MEP1Template2.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -78,8 +78,8 @@ namespace PentaPrint.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z[a-zA-Z0-9]{4}(?<resolv>[a-zA-Z0-9]{4})[a-z" +
-            "A-Z0-9]{4}#$")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z(?<resolv>[a-zA-Z0-9]{4}[a-zA-Z0-9]{4}[a-zA" +
+            "-Z0-9]{4})#$")]
         public string ResolverOffsetPattern {
             get {
                 return ((string)(this["ResolverOffsetPattern"]));
@@ -95,6 +95,53 @@ namespace PentaPrint.Properties {
             }
             set {
                 this["LaserMarkingPattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CHN08")]
+        public string SupplierId {
+            get {
+                return ((string)(this["SupplierId"]));
+            }
+            set {
+                this["SupplierId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EPA-ATA")]
+        public string CertificationCode {
+            get {
+                return ((string)(this["CertificationCode"]));
+            }
+            set {
+                this["CertificationCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Made in China")]
+        public string Origin {
+            get {
+                return ((string)(this["Origin"]));
+            }
+            set {
+                this["Origin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>1216557;ERAD</string>\r\n  <string>1216558;EFAD</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection VariantMap {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["VariantMap"]));
             }
         }
     }
