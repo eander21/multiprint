@@ -838,13 +838,13 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <!--<MultiTrigger>
-                <MultiTrigger.Conditions>
+            <MultiTrigger>
+                <!--<MultiTrigger.Conditions>
                     <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
                     <Condition Property="IsSelectionActive" Value="false"/>
-                </MultiTrigger.Conditions>
+                </MultiTrigger.Conditions>-->
                 <Setter Property="SelectionBrush" Value="{StaticResource InactiveSelectionHighlightBrush}"/>
-            </MultiTrigger>-->
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 

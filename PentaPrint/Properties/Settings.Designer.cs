@@ -144,5 +144,17 @@ namespace PentaPrint.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["VariantMap"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableAutoprint {
+            get {
+                return ((bool)(this["EnableAutoprint"]));
+            }
+            set {
+                this["EnableAutoprint"] = value;
+            }
+        }
     }
 }

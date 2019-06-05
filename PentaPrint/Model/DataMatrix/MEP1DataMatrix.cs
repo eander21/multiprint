@@ -19,6 +19,8 @@ namespace PentaPrint.Model
         String _laserMarkingPattern;
         //Dictionary used to map a final partnumber to a variant (ERAD or EFAD)
         Dictionary<String, String> variantMap = new Dictionary<String, String>();
+        //Print automatically if all conditions are fulfilled
+        Boolean _autoPrint = false;
 
         #region Members
         private string _scannerInput;
@@ -89,6 +91,7 @@ namespace PentaPrint.Model
             //TODO Add error handling if properties are missing
             _resolverOffsetPattern = Properties.Settings.Default.ResolverOffsetPattern;
             _laserMarkingPattern = Properties.Settings.Default.LaserMarkingPattern;
+            _autoPrint = Properties.Settings.Default.EnableAutoprint;
             SetupVariants();
         }
 
@@ -109,10 +112,6 @@ namespace PentaPrint.Model
                 result = result.Replace(@"|PARTNUMBER|", _partnumber);                                
                 return result;
             }
-        }
-        public override bool IsValid()
-        {
-            return !HasDupes() && !HasErrorMessage();
         }
 
         public override bool Verify(string input, out string errorText)
@@ -214,6 +213,7 @@ namespace PentaPrint.Model
                         }                        
                         break;
                 }
+                AutoPrint();
                 return errorMessage;
             }
         }
@@ -284,5 +284,38 @@ namespace PentaPrint.Model
                 }
             }
         }
+
+        /// <summary>
+        /// Print automatically if all conditions are fulfilled
+        /// </summary>
+        private void AutoPrint()
+        {
+            if (_autoPrint && IsValid())
+            {
+                printMediator.Printer.Execute(this.GetPrint());
+                _partnumber = null;
+                _serialnumber = null;
+                _resolveroffset = null;
+            }            
+        }
+
+        public override bool IsValid()
+        {
+            return AllFieldsSet();
+        }
+
+        /// <summary>
+        /// Check that all parameters are set
+        /// </summary>
+        /// <returns></returns>
+        private Boolean AllFieldsSet()
+        {
+            if(String.IsNullOrEmpty(_partnumber) || String.IsNullOrEmpty(_serialnumber) || String.IsNullOrEmpty(ResolverOffset))
+            {
+                return false;
+            }
+            return true; ;
+        }
+
     }
 }
