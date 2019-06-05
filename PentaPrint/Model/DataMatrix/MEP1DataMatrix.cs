@@ -92,6 +92,8 @@ namespace PentaPrint.Model
         public override string GetPrint()
         {
             var assembly = Assembly.GetExecutingAssembly();
+
+            String[] test = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
             var resourceName = "PentaPrint.Model.DataMatrix.MEP1Template.txt";
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))

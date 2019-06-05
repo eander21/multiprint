@@ -1876,9 +1876,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                    <ControlTemplate.Resources>
+                    <!--<ControlTemplate.Resources>
                         <darkBlendTheme:LeftMarginMultiplierConverter Length="15" x:Key="LengthConverter" />
-                    </ControlTemplate.Resources>
+                    </ControlTemplate.Resources>-->
                     <StackPanel>
                         <Border Name="Bd"
                                       Background="{TemplateBinding Background}"
@@ -2997,9 +2997,9 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsNewItem" Value="True">
+            <!--<Trigger Property="IsNewItem" Value="True">
                 <Setter Property="Margin" Value="{Binding NewItemMargin, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{DynamicResource DataGridRowSelectedBrush}"/>
                 <Setter Property="Foreground" Value="Black"/>
@@ -3081,9 +3081,9 @@
                                 <ContentPresenter RecognizesAccessKey="True"
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                   VerticalAlignment="Center"/>
-                                <Control SnapsToDevicePixels="false"
+                                <!--<Control SnapsToDevicePixels="false"
                                          Template="{Binding ValidationErrorTemplate, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
-                                         Visibility="{Binding (Validation.HasError), Converter={StaticResource bool2VisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"/>
+                                         Visibility="{Binding (Validation.HasError), Converter={StaticResource bool2VisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"/>-->
                             </StackPanel>
                         </Border>
                         <Thumb x:Name="PART_TopHeaderGripper" Style="{StaticResource RowHeaderGripperStyle}" VerticalAlignment="Top"/>

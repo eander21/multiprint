@@ -24,7 +24,7 @@
       <Value Profile="(Default)">^P[0-9]*.*?#S.*?[#].*V[a-zA-Z0-9]{5}#Z[a-zA-Z0-9]{4}(?&lt;resolv&gt;[a-zA-Z0-9]{4})[a-zA-Z0-9]{4}#$</Value>
     </Setting>
     <Setting Name="LaserMarkingPattern" Type="System.String" Scope="User">
-      <Value Profile="(Default)">^P(?&lt;partnumber&gt;[0-9]*)#S(?&lt;serialnumber&gt;.*)#.*V[a-zA-Z0-9]{5}#$</Value>
+      <Value Profile="(Default)">^P(?&lt;partnumber&gt;[0-9]*)#T(?&lt;serialnumber&gt;.*)#.*V[a-zA-Z0-9]{5}#$</Value>
     </Setting>
   </Settings>
 </SettingsFile>

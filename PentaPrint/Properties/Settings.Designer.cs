@@ -88,7 +88,7 @@ namespace PentaPrint.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^P(?<partnumber>[0-9]*)#S(?<serialnumber>.*)#.*V[a-zA-Z0-9]{5}#$")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^P(?<partnumber>[0-9]*)#T(?<serialnumber>.*)#.*V[a-zA-Z0-9]{5}#$")]
         public string LaserMarkingPattern {
             get {
                 return ((string)(this["LaserMarkingPattern"]));
