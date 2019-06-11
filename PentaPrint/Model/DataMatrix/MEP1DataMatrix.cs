@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace PentaPrint.Model
 {
@@ -19,8 +21,13 @@ namespace PentaPrint.Model
         String _laserMarkingPattern;
         //Dictionary used to map a final partnumber to a variant (ERAD or EFAD)
         Dictionary<String, String> variantMap = new Dictionary<String, String>();
+        //Dictionary used to map a final partnumber to a certification-code
+        Dictionary<String, String> certificationCodeMap = new Dictionary<String, String>();
         //Print automatically if all conditions are fulfilled
         Boolean _autoPrint = false;
+        Boolean displayPopup = true;
+        Boolean _previouslyPrinted = false;
+        Queue<string> printHistory = new Queue<string>();
 
         #region Members
         private string _scannerInput;
@@ -33,6 +40,7 @@ namespace PentaPrint.Model
             set
             {
                 _scannerInput = value;
+                displayPopup = true;
                 RaisePropertyChangedEvent("ScannerInput");
             }
         }
@@ -93,6 +101,7 @@ namespace PentaPrint.Model
             _laserMarkingPattern = Properties.Settings.Default.LaserMarkingPattern;
             _autoPrint = Properties.Settings.Default.EnableAutoprint;
             SetupVariants();
+            SetupCertificationCodeMap();
         }
 
         public override string GetPrint()
@@ -176,17 +185,16 @@ namespace PentaPrint.Model
                 switch (columnName)
                 {
                     case "ScannerInput":
-                        if(_scannerInput != null)
+                        if(!String.IsNullOrEmpty(_scannerInput))
                         {
                             foreach (Match match in Regex.Matches(_scannerInput, _resolverOffsetPattern))
                             {
                                 Group group = match.Groups["resolv"];
                                 foreach (Capture capture in group.Captures)
                                 {
-                                    _resolveroffset = capture.Value;
-                                    RaisePropertyChangedEvent("ResolverOffset");
-                                    _scannerInput = "";
-                                    RaisePropertyChangedEvent("ScannerInput");
+                                    ResolverOffset = capture.Value;
+                                    ScannerInput = "";
+                                    AutoPrint();
                                     break;
                                 }
                             }
@@ -195,8 +203,7 @@ namespace PentaPrint.Model
                                 Group group = match.Groups["partnumber"];
                                 foreach (Capture capture in group.Captures)
                                 {
-                                    _partnumber = capture.Value;
-                                    RaisePropertyChangedEvent("PartNumber");
+                                    PartNumber = capture.Value;                                    
                                 }
                             }
                             foreach (Match match in Regex.Matches(_scannerInput, _laserMarkingPattern))
@@ -204,16 +211,15 @@ namespace PentaPrint.Model
                                 Group group = match.Groups["serialnumber"];
                                 foreach (Capture capture in group.Captures)
                                 {
-                                    _serialnumber = capture.Value;
-                                    RaisePropertyChangedEvent("SerialNumber");
-                                    _scannerInput = "";
-                                    RaisePropertyChangedEvent("ScannerInput");
+                                    SerialNumber = capture.Value;
+                                    ScannerInput = "";                                    
                                 }
                             }
+                            AutoPrint();
+                            break;
                         }                        
                         break;
-                }
-                AutoPrint();
+                }                
                 return errorMessage;
             }
         }
@@ -258,13 +264,27 @@ namespace PentaPrint.Model
 
         private String GetCertificationCode()
         {
-            return Properties.Settings.Default.CertificationCode;
+            try
+            {
+                return certificationCodeMap[_partnumber];
+            }
+            catch (KeyNotFoundException kex)
+            {
+                MessageBox.Show("Error: Could not map partnumber: " + _partnumber + " to a cerification code."
+                    , "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                return "";
+            }
         }
 
-        //TODO Handle case where key is not found
         private String GetVariant()
         {
-            return variantMap[_partnumber];
+            try
+            {
+                return variantMap[_partnumber];
+            }
+            catch (KeyNotFoundException kex){
+                return "";
+            }
         }
 
         private String GetOrigin()
@@ -285,17 +305,31 @@ namespace PentaPrint.Model
             }
         }
 
+        private void SetupCertificationCodeMap()
+        {
+            System.Collections.Specialized.StringCollection certificationList = Properties.Settings.Default.CertificationCodeMap;
+            foreach (String entry in certificationList)
+            {
+                String[] split = entry.Split(';');
+                if (split.Length == 2)
+                {
+                    certificationCodeMap.Add(split[0], split[1]);
+                }
+            }
+        }
+
         /// <summary>
         /// Print automatically if all conditions are fulfilled
         /// </summary>
         private void AutoPrint()
         {
-            if (_autoPrint && IsValid())
+            if (_autoPrint && AllFieldsSet())
             {
-                printMediator.Printer.Execute(this.GetPrint());
-                _partnumber = null;
-                _serialnumber = null;
-                _resolveroffset = null;
+                this.printMediator.Printer.Execute(this.GetPrint());
+                PartNumber = null;
+                SerialNumber = null;
+                ResolverOffset = null;
+                ScannerInput = null;
             }            
         }
 
@@ -310,7 +344,7 @@ namespace PentaPrint.Model
         /// <returns></returns>
         private Boolean AllFieldsSet()
         {
-            if(String.IsNullOrEmpty(_partnumber) || String.IsNullOrEmpty(_serialnumber) || String.IsNullOrEmpty(ResolverOffset))
+            if(String.IsNullOrEmpty(PartNumber) || String.IsNullOrEmpty(SerialNumber) || String.IsNullOrEmpty(ResolverOffset))
             {
                 return false;
             }

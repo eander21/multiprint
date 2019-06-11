@@ -112,13 +112,16 @@ namespace PentaPrint.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EPA-ATA")]
-        public string CertificationCode {
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>1216557;EPA-AUA</string>\r\n  <string>1216558;EPA-ATA</string>\r\n</ArrayOfStr" +
+            "ing>")]
+        public global::System.Collections.Specialized.StringCollection CertificationCodeMap {
             get {
-                return ((string)(this["CertificationCode"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["CertificationCodeMap"]));
             }
             set {
-                this["CertificationCode"] = value;
+                this["CertificationCodeMap"] = value;
             }
         }
         
@@ -154,6 +157,30 @@ namespace PentaPrint.Properties {
             }
             set {
                 this["EnableAutoprint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool VerifyPreviousPrint {
+            get {
+                return ((bool)(this["VerifyPreviousPrint"]));
+            }
+            set {
+                this["VerifyPreviousPrint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int VerifyPrintDepth {
+            get {
+                return ((int)(this["VerifyPrintDepth"]));
+            }
+            set {
+                this["VerifyPrintDepth"] = value;
             }
         }
     }
