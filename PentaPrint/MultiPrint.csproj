@@ -103,6 +103,7 @@
     <Compile Include="Commands\OpenDialog.cs" />
     <Compile Include="Commands\OpenWindow.cs" />
     <Compile Include="Devices\SerialPrinterSettings.cs" />
+    <Compile Include="Exception\PrinterException.cs" />
     <Compile Include="Mediator\GlobalSettings.cs" />
     <Compile Include="Mediator\VerificationMediator.cs" />
     <Compile Include="Mediator\PrintMediator.cs" />

@@ -305,7 +305,7 @@ namespace PentaPrint.Model
 
                 return checksum == iqa[5];
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Console.WriteLine("Could not evaluate validity.", e);
                 return false;

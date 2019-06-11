@@ -52,7 +52,7 @@ namespace PentaPrint.Devices
                 Serial.Open();
                 CanExecuteChanged?.Invoke(this, null);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 MessageBox.Show("Error: Could not connect to printer", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 Console.WriteLine("Could not open serial " + Settings.ComPort + " at " + Settings.BaudRate);
@@ -74,9 +74,11 @@ namespace PentaPrint.Devices
         public event EventHandler CanExecuteChanged;
 
         public bool Write(String str)
-        {            
+        {
+            Console.WriteLine(DateTime.Now.ToString("h:mm:ss tt" + ": enter write"));
             if (Serial != null && Serial.IsOpen && CanWrite(str))
             {
+                Console.WriteLine(DateTime.Now.ToString("h:mm:ss tt") + ": wrote new label");
                 Serial.Write(str);
                 return true;
             }
@@ -124,7 +126,7 @@ namespace PentaPrint.Devices
         {
             if (_verifyPreviousPrint)
             {
-                return PreviouslyPrinted(currentPrint);
+                return NotPreviouslyPrinted(currentPrint);
             }
             else
             {
@@ -136,7 +138,7 @@ namespace PentaPrint.Devices
         /// Check if provided label has already been printed
         /// </summary>
         /// <returns></returns>
-        private Boolean PreviouslyPrinted(String currentPrint)
+        private Boolean NotPreviouslyPrinted(String currentPrint)
         {
             if (!printHistory.Contains(currentPrint))
             {
@@ -145,7 +147,7 @@ namespace PentaPrint.Devices
                 {
                     printHistory.Dequeue();
                 }
-                return false;
+                return true;
             }
             else
             {

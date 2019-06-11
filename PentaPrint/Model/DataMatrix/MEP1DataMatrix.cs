@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using PentaPrint.Exception;
 
 namespace PentaPrint.Model
 {
@@ -125,39 +126,8 @@ namespace PentaPrint.Model
 
         public override bool Verify(string input, out string errorText)
         {
-            if (String.IsNullOrEmpty(input))
-            {
-                errorText = "ERROR ERROR, MY ROBOT BALLS";
-                return false;
-            }
-            if (!input.StartsWith("SP"))
-            {
-                errorText = "DataMatrix does not start with SP";
-                return false;
-            }
-            if (!Regex.IsMatch(input, @".*%<$"))
-            {
-                errorText = "DataMatrix does not include valid end sequence (%<)";
-                return false;
-            }
-            if (!Regex.IsMatch(input, @"^SP\d+"))
-            {
-                errorText = "DataMatrix does not include a valid serial number";
-                return false;
-            }
-            if (!Regex.IsMatch(input, @"^SP\d+%##"))
-            {
-                errorText = "DataMatrix does not include a valid serial number separator (%##)";
-                return false;
-            }
-            if (!Regex.IsMatch(input, @"^SP\d+%##(.{8}){5}%<$"))
-            {
-                errorText = "The Injector-part of the DataMatrix does not contain correct amount of characters";
-                return false;
-            }
-
-            errorText = null;
-            return true;
+            errorText = "";
+            return false;
         }
 
         public override void Reset()
@@ -269,10 +239,8 @@ namespace PentaPrint.Model
                 return certificationCodeMap[_partnumber];
             }
             catch (KeyNotFoundException kex)
-            {
-                MessageBox.Show("Error: Could not map partnumber: " + _partnumber + " to a cerification code."
-                    , "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                return "";
+            {                
+                throw new PrinterException("Error: Could not map partnumber: " + _partnumber + " to a cerification code.");
             }
         }
 
@@ -325,11 +293,17 @@ namespace PentaPrint.Model
         {
             if (_autoPrint && AllFieldsSet())
             {
-                this.printMediator.Printer.Execute(this.GetPrint());
-                PartNumber = null;
-                SerialNumber = null;
-                ResolverOffset = null;
-                ScannerInput = null;
+                try
+                {
+                    this.printMediator.Printer.Execute(this.GetPrint());
+                    PartNumber = null;
+                    SerialNumber = null;
+                    ResolverOffset = null;
+                    ScannerInput = null;
+                }
+                catch (PrinterException pex) {
+                    MessageBox.Show(pex.Message, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                };                
             }            
         }
 
