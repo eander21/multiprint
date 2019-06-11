@@ -75,10 +75,8 @@ namespace PentaPrint.Devices
 
         public bool Write(String str)
         {
-            Console.WriteLine(DateTime.Now.ToString("h:mm:ss tt" + ": enter write"));
             if (Serial != null && Serial.IsOpen && CanWrite(str))
             {
-                Console.WriteLine(DateTime.Now.ToString("h:mm:ss tt") + ": wrote new label");
                 Serial.Write(str);
                 return true;
             }

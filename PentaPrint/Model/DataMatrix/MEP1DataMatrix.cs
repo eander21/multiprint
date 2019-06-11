@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using PentaPrint.Exception;
+using System.Windows.Threading;
 
 namespace PentaPrint.Model
 {
@@ -26,9 +27,7 @@ namespace PentaPrint.Model
         Dictionary<String, String> certificationCodeMap = new Dictionary<String, String>();
         //Print automatically if all conditions are fulfilled
         Boolean _autoPrint = false;
-        Boolean displayPopup = true;
-        Boolean _previouslyPrinted = false;
-        Queue<string> printHistory = new Queue<string>();
+        DispatcherTimer refreshTimer = new DispatcherTimer();
 
         #region Members
         private string _scannerInput;
@@ -41,7 +40,6 @@ namespace PentaPrint.Model
             set
             {
                 _scannerInput = value;
-                displayPopup = true;
                 RaisePropertyChangedEvent("ScannerInput");
             }
         }
@@ -97,12 +95,12 @@ namespace PentaPrint.Model
         
         public MEP1DataMatrix()
         {
-            //TODO Add error handling if properties are missing
             _resolverOffsetPattern = Properties.Settings.Default.ResolverOffsetPattern;
             _laserMarkingPattern = Properties.Settings.Default.LaserMarkingPattern;
             _autoPrint = Properties.Settings.Default.EnableAutoprint;
             SetupVariants();
             SetupCertificationCodeMap();
+            SetupTimer();
         }
 
         public override string GetPrint()
@@ -157,6 +155,11 @@ namespace PentaPrint.Model
                     case "ScannerInput":
                         if(!String.IsNullOrEmpty(_scannerInput))
                         {
+                            if(refreshTimer != null && this.refreshTimer.IsEnabled)
+                            {
+                                refreshTimer.Stop();
+                                refreshTimer.Start();
+                            }
                             foreach (Match match in Regex.Matches(_scannerInput, _resolverOffsetPattern))
                             {
                                 Group group = match.Groups["resolv"];
@@ -215,7 +218,6 @@ namespace PentaPrint.Model
 
         #endregion
 
-        //TODO clone members of MEP1DataMatrix
         public override object Clone()
         {
             MEP1DataMatrix clone = new MEP1DataMatrix();
@@ -284,6 +286,24 @@ namespace PentaPrint.Model
                     certificationCodeMap.Add(split[0], split[1]);
                 }
             }
+        }
+
+        private void SetupTimer()
+        {
+            int timeout = Properties.Settings.Default.RefreshInterval;
+            this.refreshTimer.Tick += new EventHandler(OnTimedEvent);
+            this.refreshTimer.Interval = new TimeSpan(0, 0, timeout);
+            this.refreshTimer.IsEnabled = true;
+        }
+
+        private void OnTimedEvent(Object source, EventArgs e)
+        {
+            PartNumber = "";
+            SerialNumber = "";
+            ResolverOffset = "";
+            ScannerInput = "";
+            this.refreshTimer.Stop();
+            this.refreshTimer.IsEnabled = true;
         }
 
         /// <summary>
